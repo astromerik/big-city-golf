@@ -1,39 +1,27 @@
-<img src="https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png" style="margin: 0;">
+Project idea:
+The application will help users to find a golf location in their area and book the tee time of their wishes. 
 
-Welcome Erik Åström,
+User stories:
+As a new user I want to create an account to be able to book a tee time 
+As a user I want to get a brief information of each golf course (location, price, (maybe course guide), facilities etc.)
+As a user I want to be able to view all courses in my area
+As a user I want to be able to sort golf courses on rating, green fee price (and maybe availability of tee times)
+As a user I want to see the available tee times when trying to book (a schedule pop up?)
+As a user I want to pay my greenfee right after booking the tee time. 
+As a returning user I want to see what tee times I have booked and cancel or reschedule them.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project.
+Project roadmap:
+Start with setting up Django/Allauth
+Create landing page and base.html
+Create login functionality
+Create and/or import a datafile of golf courses
+Create home page
+Create booking page - golf courses, filtering system 
+Create booking functionality - maximum 4 people on the same time spot (10 minutes between every tee time?) including a payment placeholder
+Create profile page - view current bookings, earlier bookings, able to change or delete maybe a rating system?
+Add Stripe functionality 
+Add email confirmations 
 
-## Gitpod Reminders
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
 
-`python3 -m http.server`
-
-A blue button should appear to click: *Make Public*,
-
-Another blue button should appear to click: *Open Browser*.
-
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
-
-A blue button should appear to click: *Make Public*,
-
-Another blue button should appear to click: *Open Browser*.
-
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the backend lessons.
-
-## Updates Since The Instructional Video
-
-We continually tweak and adjust this template to help give you the best experience. Here are the updates since the original video was made:
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
---------
-
-Happy coding!
+Meta tag in base header (X-UA-Compatible) is to ensure compatability with older ie browsers.
