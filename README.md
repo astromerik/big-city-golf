@@ -1,5 +1,5 @@
-Project idea:
-The application will help users to find a golf location in their area and book the tee time of their wishes. 
+Project statement:
+The application will help users in larger cities to find a golf location in their area and book the tee time of their wishes. 
 
 User stories:
 As a new user I want to create an account to be able to book a tee time 
@@ -13,12 +13,12 @@ As a returning user I want to see what tee times I have booked and cancel or res
 Project roadmap:
 Start with setting up Django/Allauth
 Create landing page and base.html
+Create home/landing page
 Create login functionality
 Create and/or import a datafile of golf courses
-Create home page
-Create booking page - golf courses, filtering system 
+Create course page - golf courses, filtering system (maybe rating functionality?)
 Create booking functionality - maximum 4 people on the same time spot (10 minutes between every tee time?) including a payment placeholder
-Create profile page - view current bookings, earlier bookings, able to change or delete maybe a rating system?
+Create profile page - view current bookings, earlier bookings, able to change or delete 
 Add Stripe functionality 
 Add email confirmations 
 
