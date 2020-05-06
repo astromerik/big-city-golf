@@ -1,0 +1,1 @@
+[{"pk":1,"model":"courses.district","fields":{"name":"stockholm","friendly_name":"Stockholm"}},{"pk":2,"model":"courses.district","fields":{"name":"gothenburg","friendly_name":"Gothenburg"}},{"pk":3,"model":"courses.district","fields":{"name":"malmo","friendly_name":"Malmo"}}]
