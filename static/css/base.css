@@ -1,7 +1,93 @@
-nav {
-    background-color: rgb(80, 220, 130) !important;
+body {
+    padding-top: 100px;
+    font-family: 'Jost', sans-serif;
+;
+}
+
+nav, .nav {
+    min-height: 100px;
+    font-weight: bold;
+    background-color: white !important;
 }
 
 .nav-link {
     color: black !important;
+}
+
+@media (min-width: 992px) {
+    .nav-link {
+        margin-right: 27px;
+    }
+}
+
+.bottomnavbar {
+    margin-top: 50px;
+}
+
+h2 {
+    margin-top: 50%;
+    text-align: center;
+}
+
+h4, h3 {
+    margin-top: 100px;
+}
+
+h5 {
+    text-align: center;
+}
+
+#logoball {
+    max-height: 40px;
+}
+
+#stressimg {
+    max-height: 300px;
+}
+
+#carouselExampleSlidesOnly {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+#golfvideo {
+    margin-left: -500px;
+    min-height: 540px !important;
+}
+
+#homelogin {
+    margin-top: 50px;
+}
+
+.infotext {
+    margin-top: 50px;
+}
+
+.golfcourse {
+    margin-top: 100px;
+}
+
+.golfcourse img {
+    opacity: 0.5;
+}
+.course-container {
+position: relative;
+min-width: 100% !important;
+}
+
+.course-container div {
+    padding: 0;
+}
+
+.course-container button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  border: none;
+  cursor: pointer;
+}
+
+.course-container .btn {
+    font-size: 24px;
 }

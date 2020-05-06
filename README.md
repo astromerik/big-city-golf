@@ -25,3 +25,7 @@ Add email confirmations
 
 
 Meta tag in base header (X-UA-Compatible) is to ensure compatability with older ie browsers.
+
+Pictures and video from Pixaby (Stress.png - Bellinon)
+logotypes made in logomkr
+Cropping the video - Clideo

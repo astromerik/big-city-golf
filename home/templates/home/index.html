@@ -3,6 +3,74 @@
 
 {% block content %}
 
-<h1> test </h1>
+<div class="container">
+    <div class="row">
+            <video id="golfvideo" class="d-block w-100" src="{% static 'media/golf4.mp4' %}"></video>
+        <div class="col-md-5 ml-auto">
+            <h2>Tee times for golfers in big cities</h2>
+            <h5> Get away from the stress - Play some golf</h5>
+            <div class="text-center">
+            <button id="homelogin" type="button" class="btn btn-outline-success">Create Account</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <h4>Stress in big cities</h4>
+            <h6>People living in big cities are more likely to be stressed then those on the countryside. Work is the biggest factor </h6>
+            <p><small><i> - American Psycological Association</i></small></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 ml-auto">
+            <h4>Golf as a stress reliefer</h4>
+            <h6>Golf is better suited than any other sport for stress relief and relaxation </h6>
+            <p><small><i> - American Heart Association</i></small></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col align-self-center text-center">
+            <h3>Big City Golf helps you find a tee time</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 text-center infotext">
+            <i class="far fa-flag fa-2x"></i>
+            <h6>Book over XXXX courses close to big cities</h6>
+        </div>
+        <div class="col-md-6 text-center infotext">
+        <i class="fas fa-info fa-2x"></i>
+            <h6>Find information about the golf courses of your choice</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 text-center infotext">
+        <i class="fas fa-credit-card fa-2x"></i>
+            <h6>Pay your green fee directly in our app</h6>
+        </div>
+        <div class="col-md-6 text-center infotext">
+        <i class="fas fa-user-friends fa-2x"></i>
+            <h6>Invite others to play with you</h6>
+        </div>
+    </div>
+</div>
+
+<div class="container course-container">
+    <div class="row justify-content-around golfcourse">
+        <div class="col-12">
+            <img src="{% static 'media/golf_view.jpg' %}" class="w-100" alt="golfcourse">
+            <button type="button" class="btn btn-success">Join today</button>
+        </div>
+    </div>
+</div>
+
+{% block postloadjs %}
+<script>
+var x = document.getElementById("golfvideo");
+x.autoplay = true;
+x.load();
+x.loop = true;
+</script>
+{% endblock %}
 
 {% endblock %}
