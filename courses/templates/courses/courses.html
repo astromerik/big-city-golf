@@ -1,1 +1,67 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row justify-content-around">
+        <h2>Find a tee time in your city</h2>
+    </div>
+    <div class="row searchrow">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Choose City
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Stockholm</a>
+                <a class="dropdown-item" href="#">Gothenburg</a>
+                <a class="dropdown-item" href="#">Malmo</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Choose Price
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">&lt; 500 </a>
+                <a class="dropdown-item" href="#">500 - 1000</a>
+                <a class="dropdown-item" href="#">&gt; 1000</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Choose Rating
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">&lt; 6 </a>
+                <a class="dropdown-item" href="#">&gt; 6 </a>
+                <a class="dropdown-item" href="#">&gt; 7 </a>
+                <a class="dropdown-item" href="#">&gt; 8 </a>
+                <a class="dropdown-item" href="#">&gt; 9 </a>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row">
+        {% for course in courses %}
+            <div class="col-4">
+                <div class="row coursespecificimg">
+                    <img id="courseimg" src="{{ course.img_url }}" alt="{{ course.course_name}} picture">
+                    <button type="button" class="btn btn-success">Find tee time</button>
+                </div>
+                <div class="row justify-content-around">
+                    <h5>{{ course.course_name }}</h5>
+                </div>
+                <div class="row justify-content-center">
+                    <h6 class="courseprice"><i class="fas fa-coins fa-lg"></i> {{ course.green_fee }}</h6>
+                    <h6 class="courserating"><i class="fas fa-star fa-lg"></i> {{ course.rating }}</h6>
+                </div>
+                <div class="row justify-content-center">
+                    <button type="button" class="btn btn-success">Read more</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
