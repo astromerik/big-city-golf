@@ -29,7 +29,7 @@
             <h3>About {{ course.course_name }}</h3>
         </div>
         <div class="col-8 text-center">
-            <h6>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem consequuntur ut doloremque non assumenda est rerum aliquid esse fugit eius impedit aliquam, explicabo expedita consectetur odit, corporis unde qui sed. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque, unde! Corrupti placeat, consequuntur quis nisi voluptas nobis architecto ducimus, eius, deleniti voluptatum eum! Sunt enim aspernatur eum ex iste nostrum.</h6>
+        <h6>{{ course.course_description }}</h6>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -47,11 +47,11 @@
         </div>
         <div class="col-3 text-center">
             <h5>Club phone number</h5>
-            <a href="{{ course.facility_url }}" target="_blank">555 - 555 555 555</a>
+            <a href="{{ course.facility_phone }}" target="_blank">{{ course.facility_phone }}</a>
         </div>
         <div class="col-3 text-center">
             <h5>Club email</h5>
-            <a href="{{ course.facility_url }}" target="_blank">club@mail.com</a>
+            <a href="{{ course.facility_email }}" target="_blank">{{ course.facility_email }}</a>
         </div>
     </div>
 </div>
