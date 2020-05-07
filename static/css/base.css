@@ -129,3 +129,10 @@ min-width: 100% !important;
 .dropdown {
     margin-right: 30px;
 }
+
+/* Course detail page */
+
+#detailimage {
+    max-width: 70%;
+    max-height: 500px;
+}

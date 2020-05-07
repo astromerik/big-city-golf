@@ -44,7 +44,7 @@
     </div>
     <div class="row">
         {% for course in courses %}
-            <div class="col-4">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="row coursespecificimg">
                     <img id="courseimg" src="{{ course.img_url }}" alt="{{ course.course_name}} picture">
                     <button type="button" class="btn btn-success">Find tee time</button>
@@ -53,11 +53,11 @@
                     <h5>{{ course.course_name }}</h5>
                 </div>
                 <div class="row justify-content-center">
-                    <h6 class="courseprice"><i class="fas fa-coins fa-lg"></i> {{ course.green_fee }}</h6>
+                    <h6 class="courseprice"><i class="fas fa-coins fa-lg"></i> {{ course.green_fee }} SEK</h6>
                     <h6 class="courserating"><i class="fas fa-star fa-lg"></i> {{ course.rating }}</h6>
                 </div>
                 <div class="row justify-content-center">
-                    <button type="button" class="btn btn-success">Read more</button>
+                    <a href="{% url 'course_detail' course.id %}" type="button" class="btn btn-outline-dark">Read more</a>
                 </div>
             </div>
         {% endfor %}

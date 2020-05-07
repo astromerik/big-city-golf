@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col text-center">
+            <h2>{{ course.course_name }}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <img class="rounded mx-auto d-block" id="detailimage" src="{{ course.img_url }}" alt="course image">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-3 col-lg-2 text-center">
+            <h4 class="detaildistrict"><i class="fas fa-map-marked-alt fa-lg"></i> {{ course.district.friendly_name }}</h4>
+        </div>
+        <div class="col-12 col-sm-3 col-lg-2 text-center">
+            <h4 class="detailprice"><i class="fas fa-coins fa-lg"></i> {{ course.green_fee }} SEK</h4>
+        </div>
+        <div class="col-12 col-sm-3 col-lg-2 text-center">
+            <h4 class="detailrating"><i class="fas fa-star fa-lg"></i> {{ course.rating }}</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h3>About {{ course.course_name }}</h3>
+        </div>
+        <div class="col-8 text-center">
+            <h6>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem consequuntur ut doloremque non assumenda est rerum aliquid esse fugit eius impedit aliquam, explicabo expedita consectetur odit, corporis unde qui sed. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque, unde! Corrupti placeat, consequuntur quis nisi voluptas nobis architecto ducimus, eius, deleniti voluptatum eum! Sunt enim aspernatur eum ex iste nostrum.</h6>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h3>Facilities</h3>
+        </div>
+        <div class="col-8 text-center">
+            <h6>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem consequuntur ut doloremque non assumenda est rerum aliquid esse fugit eius impedit aliquam, explicabo expedita consectetur odit, corporis unde qui sed. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque, unde! Corrupti placeat, consequuntur quis nisi voluptas nobis architecto ducimus, eius, deleniti voluptatum eum! Sunt enim aspernatur eum ex iste nostrum.</h6>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-3 text-center">
+            <h5>Club website</h5>
+            <a href="{{ course.facility_url }}" target="_blank">{{ course.course_name }}</a>
+        </div>
+        <div class="col-3 text-center">
+            <h5>Club phone number</h5>
+            <a href="{{ course.facility_url }}" target="_blank">555 - 555 555 555</a>
+        </div>
+        <div class="col-3 text-center">
+            <h5>Club email</h5>
+            <a href="{{ course.facility_url }}" target="_blank">club@mail.com</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
