@@ -53,6 +53,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">HELP</a>
                 </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'golfprofile' %}">PROFILE</a>
+                </li>
+                {% endif %}
             </ul>
             {% if request.user.is_authenticated %}
             <a href="{% url 'account_logout' %}" class="btn btn-outline-dark my-2 my-sm-0" type="submit">LOGOUT</a>

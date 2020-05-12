@@ -13,10 +13,11 @@ def courses(request):
     }
 
     return render(request, 'courses/courses.html', context)
+    
 
 def course_detail(request, course_id):
     """ A view to show information about a specific golf course """
-    
+
     course = get_object_or_404(Course, pk=course_id)
 
     context = {
