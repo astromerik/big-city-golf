@@ -4,11 +4,15 @@
 
 {% block content %}
 
-    <h2> Hi {{ request.user }}</h2>
+<h2> Hi {{ request.user }}</h2>
+
 <form action="{% url 'golfprofile' %}" method="post">
-{% csrf_token %}
-    <label for="first_name">First name: </label>
-    <input id="first_name" type="text" name="first_name" value="{{ first_name }}">
-    <input type="submit" value="OK">
+    {% csrf_token %}
+    <!-- Bunch of field 1 -->
+    {{ user_form.as_p }}
+    <!-- Bunch of field 2 -->
+    {{ user_profile_form.as_p }}
+   <button type="submit">Submit</button>
 </form>
+
 {% endblock %}

@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import UserProfileForm
+from .forms import UserProfileForm, UserForm
 from .models import UserProfile
+
 # Create your views here.
 
 
@@ -9,15 +10,22 @@ from .models import UserProfile
 def golfprofile(request):
     """ A view to render the users profile """
 
-    return render(request, 'golfprofile/golfprofile.html')
+    user = request.user
+    user_form = UserForm(request.POST, instance=user)
 
+    profile = get_object_or_404(UserProfile, user=request.user)
+    user_profile_form = UserProfileForm(request.POST, instance=profile)
 
-def UserProfileUpdate(request):
-    form = UserProfileForm(request.POST or None)
-    if form.is_valid():
-        form.save()
+    if request.method == "POST":
 
-    context = {
-        'form': form
-    }
-    return render(request, "golfprofile/golfprofile.html", context)
+        if user_form.is_valid():
+            user_form.save()
+
+        if user_profile_form.is_valid():
+            user_profile_form.save()
+
+        # flash a message "Your info has been updated!"
+
+    return render(request, "golfprofile/golfprofile.html",
+                  {'user_form': user_form,
+                   'user_profile_form': user_profile_form})
