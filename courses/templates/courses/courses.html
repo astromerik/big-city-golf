@@ -8,41 +8,40 @@
     <div class="row justify-content-around">
         <h2>Find a tee time in your city</h2>
     </div>
-    <div class="row searchrow">
-            <div class="col-4">
-                <form action="{% url 'courses' %}">
-                    <input type="text" class="form-control" name="a" placeholder="Search Course">
-                    <button class="form-control btn btn-black border border-black rounded-0" type="submit">
-                    <span class="icon">
-                        <i class="fas fa-search"></i>
-                    </span>
-                    </button>
-                </form>
+    <div class="row searchrow justify-content-around">
+        <div class="col-4">
+            <form action="{% url 'courses' %}">
+                <input type="text" class="form-control" name="q" placeholder="Search Course">
+                <button class="btn btn-black border border-black rounded-0" type="submit">
+                <span class="icon">
+                    <i class="fas fa-search"></i>
+                </span>
+                </button>
+            </form>
+        </div>
+        <div class="col-4">
+            <a class="font-weight-bold nav-link text-black border border-black rounded-0" href="#" id="course-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                District
+            </a>
+            <div class="dropdown-menu" aria-labelledby="course-link">
+                <a href="{% url 'courses' %}?district=stockholm" class="dropdown-item">Stockholm</a>
+                <a href="{% url 'courses' %}?district=gothenburg" class="dropdown-item">Gothenburg</a>
+                <a href="{% url 'courses' %}?district=malmo" class="dropdown-item">Malmo</a>
+                <a href="{% url 'courses' %}" class="dropdown-item">All Courses</a>
             </div>
         </div>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Choose Price
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">&lt; 500 </a>
-                <a class="dropdown-item" href="#">500 - 1000</a>
-                <a class="dropdown-item" href="#">&gt; 1000</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Choose Rating
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">&lt; 6 </a>
-                <a class="dropdown-item" href="#">&gt; 6 </a>
-                <a class="dropdown-item" href="#">&gt; 7 </a>
-                <a class="dropdown-item" href="#">&gt; 8 </a>
-                <a class="dropdown-item" href="#">&gt; 9 </a>
+        <div class="col-4">
+            <a class="font-weight-bold nav-link text-black border border-black rounded-0" href="#" id="sort-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort by
+            </a>
+            <div class="dropdown-menu" aria-labelledby="sort-link">
+                <a href="{% url 'courses' %}?sort=green_fee&direction=asc" class="dropdown-item">Price</a>
+                <a href="{% url 'courses' %}?sort=rating&direction=desc" class="dropdown-item">Rating</a>
+                <a href="{% url 'courses' %}" class="dropdown-item">No sort</a>
             </div>
         </div>
     </div>
+    
     <div class="row">
         {% for course in courses %}
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
@@ -61,7 +60,9 @@
                     <a href="{% url 'course_detail' course.id %}" type="button" class="btn btn-outline-dark">Read more</a>
                 </div>
             </div>
-        {% endfor %}
+            {% empty %}
+            <h2>No courses found. Please try to search for another course.</h2>
+        {% endfor %}     
     </div>
 </div>
 
