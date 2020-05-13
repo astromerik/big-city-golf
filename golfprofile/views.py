@@ -11,12 +11,14 @@ def golfprofile(request):
     """ A view to render the users profile """
 
     user = request.user
-    user_form = UserForm(request.POST, instance=user)
+    user_form = UserForm(instance=user)
 
-    profile = get_object_or_404(UserProfile, user=request.user)
-    user_profile_form = UserProfileForm(request.POST, instance=profile)
+    profile = get_object_or_404(UserProfile, user=user)
+    user_profile_form = UserProfileForm(instance=profile)
 
     if request.method == "POST":
+        user_form = UserForm(request.POST, instance=user)
+        user_profile_form = UserProfileForm(request.POST, instance=profile)
 
         if user_form.is_valid():
             user_form.save()

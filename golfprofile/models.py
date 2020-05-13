@@ -22,6 +22,7 @@ class UserProfile(models.Model):
         verbose_name_plural = "Profiles"
 
 
+# When a user is registrated, automatically create a user profile
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:

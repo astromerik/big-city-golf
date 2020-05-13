@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block content %}
 
 <div class="container-fluid">
@@ -8,14 +9,15 @@
         <h2>Find a tee time in your city</h2>
     </div>
     <div class="row searchrow">
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Choose City
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Stockholm</a>
-                <a class="dropdown-item" href="#">Gothenburg</a>
-                <a class="dropdown-item" href="#">Malmo</a>
+            <div class="col-4">
+                <form action="{% url 'courses' %}">
+                    <input type="text" class="form-control" name="a" placeholder="Search Course">
+                    <button class="form-control btn btn-black border border-black rounded-0" type="submit">
+                    <span class="icon">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    </button>
+                </form>
             </div>
         </div>
         <div class="dropdown">
@@ -79,7 +81,6 @@
         </div>
     </div>
 </div>
-{% endblock %}
 {% block postloadjs %}
 <script>
 function on() {
@@ -96,4 +97,5 @@ function passCourseName() {
 }
 
 </script>
+{% endblock %}
 {% endblock %}
