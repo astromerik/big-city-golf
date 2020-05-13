@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.db.models import Q
-from .models import Course, District
+from .models import Course, District, TeeTime
 # Create your views here.
 
 
@@ -65,6 +65,8 @@ def course_detail(request, course_id):
 def book_tee_time(request, course_id):
     """ A view to book a tee time """
 
-    course = get_object_or_404(Course, pk=course_id)
-
-    
+    if request.POST:
+        tee_time_form = TeeTime(request.POST)
+        if tee_time_form.is_valid():
+            tee_time_form.save()
+        return render(request, 'golfprofile/golfprofile.html')

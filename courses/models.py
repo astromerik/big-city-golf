@@ -1,6 +1,6 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-
+from golfprofile.models import UserProfile
 # Create your models here.
 
 
@@ -10,9 +10,10 @@ class District(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def get_firendly_name(self):
         return self.friendly_name
+
 
 class Course(models.Model):
     district = models.ForeignKey('District', null=True, blank=True, on_delete=models.SET_NULL)
@@ -28,3 +29,11 @@ class Course(models.Model):
 
     def __str__(self):
         return self.course_name
+
+
+class TeeTime(models.Model):
+    day_to_play = models.DateField()
+    tee_time = models.TimeField()
+    course = models.ForeignKey('Course', on_delete=models.CASCADE)
+    player = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    booked = models.BooleanField(default=False)

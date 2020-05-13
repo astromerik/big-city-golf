@@ -69,16 +69,13 @@
 <div id="overlay">
     <div class="container-fluid">
         <div class="row justify-content-around">
-            <h2 id="courseteetime"></h2>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col text-center">
-                <input type="date">
-                {{ example_form.my_date_field }}
-            </div>
-            <div class="col text-center">
-                <i class="fas fa-times fa-7x" onclick="off()"></i>
-            </div>
+            <form action="{% url 'courses' %}" method="post">
+                {% csrf_token %}
+                {{ tee_time_form.as_p }}
+            
+            </form>
+        <div class="col text-center">
+            <i class="fas fa-times fa-7x" onclick="off()"></i>
         </div>
     </div>
 </div>
