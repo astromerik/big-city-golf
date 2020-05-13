@@ -47,7 +47,7 @@
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="row coursespecificimg">
                     <img id="courseimg" src="{{ course.img_url }}" alt="{{ course.course_name}} picture">
-                    <button id="findteetime" value="{{ course.course_name }}" type="button" class="btn btn-success" onclick="on(); passCourseName()">Find tee time</button>
+                    <button id="findteetime" value="{{ course.course_name }}" type="button" class="btn btn-success" onclick="on();">Find tee time</button>
                 </div>
                 <div class="row justify-content-around">
                     <h5>{{ course.course_name }}</h5>
@@ -65,20 +65,28 @@
         {% endfor %}     
     </div>
 </div>
-
+{% for course in courses %}
 <div id="overlay">
     <div class="container-fluid">
+        <h2>Form should be here</h2>
+        <h2>Form should be here</h2>
+        <h2>Form should be here</h2>
         <div class="row justify-content-around">
-            <form action="{% url 'courses' %}" method="post">
+        <div class="col">
+            <form action="{% url 'book_tee_time' %}" method="post">
                 {% csrf_token %}
                 {{ tee_time_form.as_p }}
-            
+                <button type="submit">Submit</button>
             </form>
+        </div>                
         <div class="col text-center">
             <i class="fas fa-times fa-7x" onclick="off()"></i>
         </div>
     </div>
+    </div>
 </div>
+{% endfor %}
+{% endblock %}
 {% block postloadjs %}
 <script>
 function on() {
@@ -95,5 +103,5 @@ function passCourseName() {
 }
 
 </script>
-{% endblock %}
+
 {% endblock %}

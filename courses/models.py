@@ -16,7 +16,7 @@ class District(models.Model):
 
 
 class Course(models.Model):
-    district = models.ForeignKey('District', null=True, blank=True, on_delete=models.SET_NULL)
+    district = models.ForeignKey(District, null=True, blank=True, on_delete=models.SET_NULL)
     course_name = models.CharField(max_length=50)
     course_description = models.TextField(null=True, blank=True)
     holes = models.IntegerField(null=True, blank=True)
@@ -34,6 +34,9 @@ class Course(models.Model):
 class TeeTime(models.Model):
     day_to_play = models.DateField()
     tee_time = models.TimeField()
-    course = models.ForeignKey('Course', on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     player = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     booked = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.tee_time)
