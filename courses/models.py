@@ -32,8 +32,7 @@ class Course(models.Model):
 
 
 class TeeTime(models.Model):
-    day_to_play = models.DateField()
-    tee_time = models.TimeField()
+    tee_time = models.DateTimeField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     player = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     booked = models.BooleanField(default=False)

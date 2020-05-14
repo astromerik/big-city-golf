@@ -4,15 +4,41 @@
 
 {% block content %}
 
+<div class="container-fluid">
 <h2> Hi {{ request.user }}</h2>
+<div class="row">
+<div class="col-5">
+    <h5>Here are your current tee times</h5>
+    {% for teetimes in tee_times %}
+    <ul>
 
-<form action="{% url 'golfprofile' %}" method="post">
-    {% csrf_token %}
-    <!-- Bunch of field 1 -->
-    {{ user_form.as_p }}
-    <!-- Bunch of field 2 -->
-    {{ user_profile_form.as_p }}
-   <button type="submit">Submit</button>
-</form>
+        <!-- <img id="courseimg" src="{{ course.img_url }}" alt="course picture"> -->
+        <li>
+        {{ teetimes.course }}
+        </li>
+        <li>
+        {{ teetimes.tee_time }}
+        </li>
+    </ul>
+    {% endfor %}
+    </div>
+
+    <div class="col-5">
+        <form action="{% url 'golfprofile' %}" method="post">
+            {% csrf_token %}
+            <!-- From User -->
+            {{ user_form.as_p }}
+            <!-- From UserProfile -->
+            {{ user_profile_form.as_p }}
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% for message in messages %}
+    {{ message }}
+{% endfor %}
+
+</div>
+
 
 {% endblock %}

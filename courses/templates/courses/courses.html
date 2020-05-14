@@ -47,7 +47,7 @@
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="row coursespecificimg">
                     <img id="courseimg" src="{{ course.img_url }}" alt="{{ course.course_name}} picture">
-                    <button id="findteetime" value="{{ course.course_name }}" type="button" class="btn btn-success" onclick="on();">Find tee time</button>
+                    <button id="findteetime" value="{{ course.course_name }}" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">Find tee time</button>
                 </div>
                 <div class="row justify-content-around">
                     <h5>{{ course.course_name }}</h5>
@@ -66,41 +66,36 @@
     </div>
 </div>
 {% for course in courses %}
-<div id="overlay">
-    <div class="container-fluid">
-        <h2>Form should be here</h2>
-        <h2>Form should be here</h2>
-        <h2>Form should be here</h2>
-        <div class="row justify-content-around">
-        <div class="col">
-            <form action="{% url 'book_tee_time' %}" method="post">
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{% url 'book_tee_time' %}" method="post">
+        <div class="modal-body">
                 {% csrf_token %}
                 {{ tee_time_form.as_p }}
-                <button type="submit">Submit</button>
-            </form>
-        </div>                
-        <div class="col text-center">
-            <i class="fas fa-times fa-7x" onclick="off()"></i>
         </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Book tee time</button>
+        </div>
+      </form>
     </div>
-    </div>
+  </div>
 </div>
+
 {% endfor %}
 {% endblock %}
 {% block postloadjs %}
 <script>
-function on() {
-  document.getElementById("overlay").style.display = "block";
-}
 
-function off() {
-  document.getElementById("overlay").style.display = "none";
-}
-
-function passCourseName() {
-  var coursename = $(this).attr("value")
-  document.getElementById("courseteetime").innerHTML = coursename;
-}
 
 </script>
 

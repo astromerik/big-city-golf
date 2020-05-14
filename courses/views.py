@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
-from .models import Course, TeeTime
+from .models import Course, TeeTime, UserProfile
 from .forms import TeeTimeForm
 # Create your views here.
 
@@ -69,30 +69,30 @@ def course_detail(request, course_id):
 # @login_required
 def book_tee_time(request):
     """ A view to book a tee time """
-    # tee_time_form = TeeTimeForm()
-    print(request.POST)
+#    player = request.user
+#    tee_time_form = TeeTimeForm(request.POST, instance=player)
     course_id = request.POST.get('course')
     course = get_object_or_404(Course, pk=course_id)
-    booked_date = request.POST.get('day_to_play')
     booked_time = request.POST.get('tee_time')
     booking_exist = TeeTime.objects.filter(course=course_id,
-                                           day_to_play=booked_date,
                                            tee_time=booked_time).exists()
-    print(booking_exist)
+
     if booking_exist:
         messages.error(request, "Tee time is already booked")
         return redirect(reverse('courses'))
 
     tee_time_form = TeeTimeForm(request.POST)
+
     if tee_time_form.is_valid():
         booked_tee_time = tee_time_form.save(commit=False)
         booked_tee_time.booked = True
+        p = get_object_or_404(UserProfile, user = request.user)
+        booked_tee_time.player_id = p.id
         booked_tee_time.save()
-        print('form saved successfully!!!')
+
         return render(request, 'golfprofile/golfprofile.html',
-                  {'tee_time_form': tee_time_form})
+                      {'tee_time_form': tee_time_form})
 
     # raise SystemExit
     # if request.method == "POST":
     #     print('in the post handler!')
-    
