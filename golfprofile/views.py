@@ -45,8 +45,7 @@ def golfprofile(request):
 
 def delete_tee_time(request, tee_time_id):
     """ Delete the booked tee time """
-    tee_time = get_object_or_404(TeeTime, pk=tee_time_id)
+    tee_time = TeeTime.objects.get(pk=tee_time_id)
     tee_time.delete()
 
-    return redirect(reverse('golfprofile'))
-
+    return redirect('golfprofile')

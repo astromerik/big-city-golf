@@ -69,8 +69,7 @@ def course_detail(request, course_id):
 # @login_required
 def book_tee_time(request):
     """ A view to book a tee time """
-#    player = request.user
-#    tee_time_form = TeeTimeForm(request.POST, instance=player)
+
     course_id = request.POST.get('course')
     course = get_object_or_404(Course, pk=course_id)
     booked_time = request.POST.get('tee_time')
@@ -86,7 +85,7 @@ def book_tee_time(request):
     if tee_time_form.is_valid():
         booked_tee_time = tee_time_form.save(commit=False)
         booked_tee_time.booked = True
-        p = get_object_or_404(UserProfile, user = request.user)
+        p = get_object_or_404(UserProfile, user=request.user)
         booked_tee_time.player_id = p.id
         booked_tee_time.save()
 

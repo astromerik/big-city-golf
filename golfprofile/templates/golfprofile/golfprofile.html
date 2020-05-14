@@ -11,14 +11,16 @@
     <h5>Here are your current tee times</h5>
     {% for teetimes in tee_times %}
     <ul>
-
-        <!-- <img id="courseimg" src="{{ course.img_url }}" alt="course picture"> -->
         <li>
         {{ teetimes.course }}
         </li>
         <li>
         {{ teetimes.tee_time }}
         </li>
+        {% csrf_token %}
+        <a href="{% url 'delete_tee_time' teetimes.id %}">
+            <button class="btn btn-outline-dark">Cancel tee time</button>
+        </a>
     </ul>
     {% endfor %}
     </div>
