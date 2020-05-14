@@ -47,7 +47,7 @@
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="row coursespecificimg">
                     <img id="courseimg" src="{{ course.img_url }}" alt="{{ course.course_name}} picture">
-                    <button id="findteetime" value="{{ course.course_name }}" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">Find tee time</button>
+                    <a href="#course{{course.id }}" id="findteetime" value="{{ course.course_name }}" type="button" class="btn btn-success" data-toggle="modal" data-target="#course{{ course.id }}">Find tee time</a>
                 </div>
                 <div class="row justify-content-around">
                     <h5>{{ course.course_name }}</h5>
@@ -68,11 +68,11 @@
 {% for course in courses %}
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="course{{ course.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{course.course_name}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -80,7 +80,20 @@
       <form action="{% url 'book_tee_time' %}" method="post">
         <div class="modal-body">
                 {% csrf_token %}
-                {{ tee_time_form.as_p }}
+                <!-- This one is not working
+                <p>
+                    <label for="id_tee_time">Tee time:</label>
+                    <input type="datetime-local" name="tee_time" required id="id_tee_time">
+                </p> -->
+                <p>
+                <label for="id_course">Course:</label>
+                <select name="course" required id="id_course">
+                    <option value="{{ course.id }}" selected>{{ course.course_name}}</option>
+                </select>
+                </p>
+                <p>
+                Tee time: {{ tee_time_form.tee_time }} (Please enter: YYYY-MM-DD HH:ii)
+                </p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

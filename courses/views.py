@@ -90,7 +90,8 @@ def book_tee_time(request):
         booked_tee_time.save()
 
         return render(request, 'golfprofile/golfprofile.html',
-                      {'tee_time_form': tee_time_form})
+                      {'tee_time_form': tee_time_form,
+                       'course': course})
 
     # raise SystemExit
     # if request.method == "POST":
