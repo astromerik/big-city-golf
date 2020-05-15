@@ -63,7 +63,7 @@
             {% empty %}
             <h2>No courses found. Please try to search for another course.</h2>
         {% endfor %}     
-    </div>
+    </div> 
 </div>
 {% for course in courses %}
 
@@ -97,13 +97,63 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-secondary">Book</button>
+            <a href="#pay{{ course.id }}" id="booktime" value="{{ course.course_name }}" type="submit" class="btn btn-success" data-toggle="modal" data-target="#pay{{ course.id }}">Purchase</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="pay{{ course.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pay">Payment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="" method="post">
+        <div class="modal-body">
+                {% csrf_token %}
+                <!-- This one is not working
+                <p>
+                    <label for="id_tee_time">Tee time:</label>
+                    <input type="datetime-local" name="tee_time" required id="id_tee_time">
+                </p> -->
+                <p>
+                <label for="id_course">Course:</label>
+                <select name="course" required id="id_course">
+                    <option value="{{ course.id }}" selected>{{ course.course_name}}</option>
+                </select>
+                </p>
+                <p>
+                Tee time: {{ tee_time_form.tee_time }} (Please enter: YYYY-MM-DD HH:ii)
+                Tee time: "this tee time"
+                {% for teetimes in tee_times %}
+                    <ul>
+                        <li>
+                        {{ teetimes.course }}
+                        </li>
+                        <li>
+                        {{ teetimes.tee_time }}
+                        </li>
+                        {% csrf_token %}
+                        <a href="{% url 'delete_tee_time' teetimes.id %}">
+                            <button class="btn btn-outline-dark">Cancel tee time</button>
+                        </a>
+                    </ul>
+            {% endfor %}
+                </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Change tee time</button>
             <button type="submit" class="btn btn-primary">Book tee time</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-
 {% endfor %}
 {% endblock %}
 {% block postloadjs %}

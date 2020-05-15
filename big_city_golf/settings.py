@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'home',
     'courses',
     'golfprofile',
+    'paygreenfee',
     'phonenumber_field',
 
 ]

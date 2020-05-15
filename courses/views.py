@@ -66,7 +66,7 @@ def course_detail(request, course_id):
     return render(request, 'courses/course_detail.html', context)
 
 
-# @login_required
+@login_required
 def book_tee_time(request):
     """ A view to book a tee time """
 
@@ -92,7 +92,3 @@ def book_tee_time(request):
         return render(request, 'golfprofile/golfprofile.html',
                       {'tee_time_form': tee_time_form,
                        'course': course})
-
-    # raise SystemExit
-    # if request.method == "POST":
-    #     print('in the post handler!')

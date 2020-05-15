@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm, UserForm
 from .models import UserProfile
-from courses.models import TeeTime, Course
+from courses.models import TeeTime
 
 # Create your views here.
 
@@ -12,11 +12,8 @@ from courses.models import TeeTime, Course
 def golfprofile(request):
     """ A view to render the users profile """
 
-#    tee_times = TeeTime.objects.all()
-    current_user = get_object_or_404(UserProfile, user = request.user)
-    tee_times = TeeTime.objects.filter(player = current_user)
-
-    # course = get_object_or_404(Course,)
+    current_user = get_object_or_404(UserProfile, user=request.user)
+    tee_times = TeeTime.objects.filter(player=current_user)
 
     user = request.user
     user_form = UserForm(instance=user)

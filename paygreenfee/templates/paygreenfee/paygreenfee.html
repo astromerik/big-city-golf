@@ -18,24 +18,10 @@
         {{ teetimes.tee_time }}
         </li>
         {% csrf_token %}
-        <a href="{% url 'delete_tee_time' teetimes.id %}">
-            <button class="btn btn-outline-dark">Cancel tee time</button>
-        </a>
     </ul>
     {% endfor %}
 </div>
 
-    <div class="col-5">
-        <form action="{% url 'golfprofile' %}" method="post">
-            {% csrf_token %}
-            <!-- From User -->
-            {{ user_form.as_p }}
-            <!-- From UserProfile -->
-            {{ user_profile_form.as_p }}
-        <button type="submit">Submit</button>
-        </form>
-    </div>
-</div>
 {% for message in messages %}
     {{ message }}
 {% endfor %}
