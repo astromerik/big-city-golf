@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm, UserForm
 from .models import UserProfile
 from courses.models import TeeTime
+from paygreenfee.models import TeeTimePurchase
 
 # Create your views here.
 
@@ -14,6 +15,7 @@ def golfprofile(request):
 
     current_user = get_object_or_404(UserProfile, user=request.user)
     tee_times = TeeTime.objects.filter(player=current_user)
+    purchased_tee_times = TeeTimePurchase.objects.filter(player=current_user)
 
     user = request.user
     user_form = UserForm(instance=user)
@@ -37,5 +39,6 @@ def golfprofile(request):
                   {'user_form': user_form,
                    'user_profile_form': user_profile_form,
                    'tee_times': tee_times,
+                   'purchased_tee_times': purchased_tee_times,
                    })
 
