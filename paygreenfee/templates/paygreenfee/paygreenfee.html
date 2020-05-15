@@ -8,18 +8,30 @@
 <h2> Hi {{ request.user }}</h2>
 <div class="row">
 <div class="col-5">
-    <h5>Here are your current tee times</h5>
-    {% for teetimes in tee_times %}
-    <ul>
-        <li>
-        {{ teetimes.course }}
-        </li>
-        <li>
-        {{ teetimes.tee_time }}
-        </li>
-        {% csrf_token %}
-    </ul>
-    {% endfor %}
+    <h5>Pay greenfee</h5>
+    {% if tee_times %}
+        {% for teetimes in tee_times %}
+        <ul>
+            <li>
+            {{ teetimes.course }}
+            </li>
+            <li>
+            {{ teetimes.tee_time }}
+            </li>
+            <li>
+            {{ teetimes.price}} SEK
+            </li>
+            {% csrf_token %}
+            <a href="{% url 'delete_tee_time' teetimes.id %}">
+            <button class="btn btn-outline-dark">Remove tee time</button>
+        </a>
+        </ul>
+        {% endfor %}
+    {% else %}
+
+    <p> you have no current tee times</p>
+
+    {% endif %}
 </div>
 
 {% for message in messages %}

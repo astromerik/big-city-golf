@@ -89,6 +89,6 @@ def book_tee_time(request):
         booked_tee_time.player_id = p.id
         booked_tee_time.save()
 
-        return render(request, 'golfprofile/golfprofile.html',
+        return render(request, 'paygreenfee/paygreenfee.html',
                       {'tee_time_form': tee_time_form,
                        'course': course})

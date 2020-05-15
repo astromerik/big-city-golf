@@ -18,9 +18,6 @@
         {{ teetimes.tee_time }}
         </li>
         {% csrf_token %}
-        <a href="{% url 'delete_tee_time' teetimes.id %}">
-            <button class="btn btn-outline-dark">Cancel tee time</button>
-        </a>
     </ul>
     {% endfor %}
 </div>
