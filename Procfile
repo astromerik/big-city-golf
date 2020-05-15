@@ -1,0 +1,1 @@
+web: gunicorn big_city_golf.wsgi:application
