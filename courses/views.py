@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.db.models import Q
 from .models import Course, TeeTime, UserProfile
@@ -58,12 +59,39 @@ def course_detail(request, course_id):
     """ A view to show information about a specific golf course """
 
     course = get_object_or_404(Course, pk=course_id)
-    
+
     context = {
         'course': course,
     }
 
     return render(request, 'courses/course_detail.html', context)
+
+@require_POST
+def book_course(request):
+    # Get the "bag" of courses that the user wants to book 
+    course_bag = request.session.get('course_bag', {})
+
+    # Get the course id/tee time for the current course they are booking
+    course_id = request.POST.get('course')
+    course = get_object_or_404(Course, pk=course_id)
+    booked_time = request.POST.get('tee_time')
+
+    # Check whether the tee time has already been booked for that course
+    booking_exist = TeeTime.objects.filter(course=course_id,
+                                        tee_time=booked_time).exists()
+
+    # If so, return an error and redirect
+    if booking_exist:
+        messages.error(request, "Tee time is already booked")
+        return redirect(reverse('courses'))
+
+    # Otherwise, just add it to the bag
+    if not course_id in list(course_bag.keys()):
+        course_bag[course_id] = [booked_time]
+    else:
+        course_bag[course_id].append(booked_time)   
+    request.session['course_bag'] = course_bag
+    return redirect(reverse('paygreenfee'))
 
 
 # @login_required
@@ -75,6 +103,7 @@ def book_tee_time(request):
     booked_time = request.POST.get('tee_time')
     booking_exist = TeeTime.objects.filter(course=course_id,
                                            tee_time=booked_time).exists()
+    course_bag = request.session.get('course_bag', {})
 
     if booking_exist:
         messages.error(request, "Tee time is already booked")

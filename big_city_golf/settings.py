@@ -77,7 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth', # required by allauth
                 'django.contrib.messages.context_processors.messages',
-                'paygreenfee.contexts.greenfee_contents',
+                'courses.contexts.course_bookings',
             ],
         },
     },

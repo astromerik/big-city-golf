@@ -9,6 +9,7 @@
 
 <div class="container-fluid">
 <h2> Hi {{ request.user }}</h2>
+{{ request.session.course_bag }}
 <div class="row">
 <div class="col-5">
     <h5>Pay greenfee</h5>
@@ -45,15 +46,8 @@
                         {{ purchase_form.last_name }}
                         {{ purchase_form.email }}
                         {{ purchase_form.phone_number }}
-							{% if user.is_authenticated %}
 								<label class="form-check-label" for="id-save-info">Save this delivery information to my profile</label>
                                 <input class="form-check-input ml-2 mr-0" type="checkbox" id="id-save-info" name="save-info" checked>
-							{% else %}
-								<label class="form-check-label" for="id-save-info">
-                                    <a class="text-info" href="{% url 'account_signup' %}">Create an account</a> or 
-                                    <a class="text-info" href="{% url 'account_login' %}">login</a> to save this information
-                                </label>
-							{% endif %}
                     </fieldset>
                     <fieldset class="px-3">
                         <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
@@ -76,7 +70,7 @@
 							<span class="icon">
 								<i class="fas fa-exclamation-circle"></i>
 							</span>
-							<span>Your card will be charged <strong>$...</strong></span>
+							<span>Your card will be charged <strong>{{ total }} SEK</strong></span>
 						</p>
 					</div>
                 </form>
