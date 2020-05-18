@@ -66,7 +66,7 @@ def course_detail(request, course_id):
     return render(request, 'courses/course_detail.html', context)
 
 
-@login_required
+# @login_required
 def book_tee_time(request):
     """ A view to book a tee time """
 
