@@ -75,10 +75,10 @@ def book_course(request):
     course_id = request.POST.get('course')
     course = get_object_or_404(Course, pk=course_id)
     booked_time = request.POST.get('tee_time')
-
+    print(booked_time)
     # Check whether the tee time has already been booked for that course
     booking_exist = TeeTime.objects.filter(course=course_id,
-                                        tee_time=booked_time).exists()
+                                           tee_time=booked_time[0]).exists()
 
     # If so, return an error and redirect
     if booking_exist:

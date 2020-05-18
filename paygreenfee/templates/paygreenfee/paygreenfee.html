@@ -10,6 +10,7 @@
 <div class="container-fluid">
 <h2> Hi {{ request.user }}</h2>
 {{ request.session.course_bag }}
+
 <div class="row">
 <div class="col-5">
     <h5>Pay greenfee</h5>
@@ -36,6 +37,19 @@
     <p> you have no current tee times</p>
 
     {% endif %}
+    <div class="col-12 col-lg-6">
+                <form action="{% url 'paygreenfee' %}" method="POST">
+                    {% csrf_token %}
+
+                        {{ purchase_form.first_name }}
+                        {{ purchase_form.last_name }}
+                        {{ purchase_form.email }}
+                        {{ purchase_form.phone_number }}
+                
+                <button type="submit">test</button>
+                </form>
+            </div>
+        </div>
     <div class="col-12 col-lg-6">
                 <p class="text-muted">Please fill out the form below to complete your purchase</p>
                 <form action="{% url 'paygreenfee' %}" method="POST" id="payment-form">

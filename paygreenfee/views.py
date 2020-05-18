@@ -9,28 +9,29 @@ from .forms import PurchaseForm
 from courses.models import TeeTime, Course
 from golfprofile.models import UserProfile
 from .models import PaymentInfo, TeeTimePurchase
+from courses.forms import TeeTimeForm
 
 import stripe
 import json
 # Create your views here.
 
 
-@require_POST
-def cache_checkout_data(request):
-    try:
-        pid = request.POST.get('client_secret').split('_secret')[0]
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        stripe.PaymentIntent.modify(pid, metadata={
-            'course_bag': json.dumps(request.session.get('course_bag', {})),
-            'save_info': request.POST.get('save_info'),
-            'username': request.user,
-        })
-        return HttpResponse(status=200)
-    except Exception as e:
-        messages.error(request, ('Sorry, your payment cannot be '
-                                 'processed right now. Please try '
-                                 'again later.'))
-        return HttpResponse(content=e, status=400)
+# @require_POST
+# def cache_checkout_data(request):
+#     try:
+#         pid = request.POST.get('client_secret').split('_secret')[0]
+#         stripe.api_key = settings.STRIPE_SECRET_KEY
+#         stripe.PaymentIntent.modify(pid, metadata={
+#             'course_bag': json.dumps(request.session.get('course_bag', {})),
+#             'save_info': request.POST.get('save_info'),
+#             'username': request.user,
+#         })
+#         return HttpResponse(status=200)
+#     except Exception as e:
+#         messages.error(request, ('Sorry, your payment cannot be '
+#                                  'processed right now. Please try '
+#                                  'again later.'))
+#         return HttpResponse(content=e, status=400)
 
 
 @login_required
@@ -41,7 +42,6 @@ def paygreenfee(request):
     current_user = get_object_or_404(UserProfile, user=request.user)
     tee_times = TeeTime.objects.filter(player=current_user)
     purchase_form = PurchaseForm()
-
 
     if request.method == 'POST':
         course_bag = request.session.get('course_bag', {})
@@ -55,42 +55,59 @@ def paygreenfee(request):
 
         purchase_form = PurchaseForm(form_data)
         if purchase_form.is_valid():
-            # 1. check whether booking_exists
+            # 1. check whether booking_exists - itterate one for course id and one for booking
             # 2. if not, create TeeTime, attached to the course_id
             # 3. create the TeeTimePurchase (linked to the course_id and the TeeTime)
             # 4. Attach the TeeTimePurchase to the PaymentInfo instance
             purchase = purchase_form.save(commit=False)
-            pid = request.POST.get('client_secret').split('_secret')[0]
-            purchase.stripe_pid = pid
+            # pid = request.POST.get('client_secret').split('_secret')[0]
+            # purchase.stripe_pid = pid
             purchase.original_teetime = json.dumps(course_bag)
             purchase.save()
             for course_id, course_data in course_bag.items():
-                try:
-                    course = Course.objects.get(id=course_id)
-                    if isinstance(course_data, int):
-                        tee_time_purchase = TeeTimePurchase(
-                            tee_time=tee_time,
-                            course=course,
-                            quantity=course_data,
-                        )
-                        tee_time_purchase.save()
-                    else:
-                        return redirect(reverse('courses'))
-                except Course.DoesNotExist:
-                    messages.error(request, (
-                        "One of the products in your bag wasn't "
-                        "found in our database. "
-                        "Please call us for assistance!")
-                    )
-                    purchase.delete()
-                    return redirect(reverse('home'))
+                print(course_data)
+                # if course_id in TeeTime:
+                #     messages.error(request('Tee time is already booked'))
+                #     return redirect(reverse('courses'))
+                # else:
+                player=get_object_or_404(UserProfile, user=request.user)
+                course = get_object_or_404(Course, pk=course_id)
+                create_tee_time = TeeTime(
+                    course=course,
+                    tee_time=str(course_data[0]),
+                    price=course.green_fee,
+                    player=player,
+                    booked=True,
+                )
+                print(create_tee_time)
+                create_tee_time.save()
+        #         if course_id in TeeTime
+        #         try:
+        #             course = Course.objects.get(id=course_id)
+        #             if isinstance(course_data, int):
+        #                 tee_time_purchase = TeeTimePurchase(
+        #                     tee_time=tee_time,
+        #                     course=course,
+        #                     quantity=course_data,
+        #                 )
+        #                 tee_time_purchase.save()
+        #             else:
+        #                 return redirect(reverse('courses'))
+        #         except Course.DoesNotExist:
+        #             messages.error(request, (
+        #                 "One of the products in your bag wasn't "
+        #                 "found in our database. "
+        #                 "Please call us for assistance!")
+        #             )
+        #             purchase.delete()
+        #             return redirect(reverse('home'))
 
-            request.session['save_info'] = 'save-info' in request.POST
-            return redirect(reverse('golfprofile',
-                                    args=[purchase.order_number]))
+        #     request.session['save_info'] = 'save-info' in request.POST
+        #     return redirect(reverse('golfprofile',
+        #                             args=[purchase.order_number]))
 
-        else:
-            messages.error(request, ('We could not save your purchase correctly, please double check your form'))
+        # else:
+        #     messages.error(request, ('We could not save your purchase correctly, please double check your form'))
     else:
         course_bag = request.session.get('course_bag', {})
         if not course_bag:
