@@ -9,13 +9,16 @@
 <div class="row">
 <div class="col-5">
     <h5>Here are your current tee times</h5>
-    {% for teetimes in purchased_tee_times %}
+    {% for teetimes in tee_times %}
     <ul>
         <li>
         {{ teetimes.course }}
         </li>
         <li>
         {{ teetimes.tee_time }}
+        </li>
+        <li>
+        {{ teetimes.price }} SEK
         </li>
         {% csrf_token %}
     </ul>

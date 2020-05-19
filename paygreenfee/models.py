@@ -22,9 +22,10 @@ class PaymentInfo(models.Model):
         """
         return uuid.uuid4().hex.upper()
 
-    def update_greenfee(self):
-        self.total_greenfee = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
-        self.save()
+    # def update_greenfee(self):
+    #     self.total_greenfee = self.lineitems.aggregate(
+    #         Sum('lineitem_total'))['lineitem_total__sum'] or 0
+    #     self.save()
 
     def save(self, *args, **kwargs):
         """
@@ -48,13 +49,13 @@ class TeeTimePurchase(models.Model):
     player = models.ForeignKey(UserProfile, null=False, blank=False, on_delete=models.CASCADE)
     total_greenfee = models.DecimalField(max_digits=10, decimal_places=2, blank=False, null=False, default=0)
 
-    def save(self, *args, **kwargs):
-        """
-        Override the original save method to set the lineitem total
-        and update the order total.
-        """
-        self.total_greenfee = self.course.green_fee
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     """
+    #     Override the original save method to set the lineitem total
+    #     and update the order total.
+    #     """
+    #     self.total_greenfee = self.course.green_fee
+    #     super().save(*args, **kwargs)
 
     def __str__(self):
         return str(self.payment_info)

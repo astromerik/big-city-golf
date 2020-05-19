@@ -12,11 +12,11 @@ def course_bookings(request):
     for course_id, course_data in course_bag.items():
         if isinstance(course_data, int):
             course = get_object_or_404(Course, pk=course_id)
-            total += course_data * course.green_fee
+            total += course.green_fee
             course_count += course_data
             course_courses.append({
                 'course_id': course_id,
-                'quantity': course_data,
+                'course_data': course_data,
                 'course': course,
             })
 

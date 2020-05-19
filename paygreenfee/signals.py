@@ -6,9 +6,9 @@ from .models import TeeTimePurchase
 
 @receiver(post_save, sender=TeeTimePurchase)
 def update_greenfee(sender, instance, created, **kwargs):
-    instance.greenfe.update_greenfee()
+    instance.payment_info.update_greenfee()
 
 
 @receiver(post_delete, sender=TeeTimePurchase)
 def delete_greenfee(sender, instance, **kwargs):
-    instance.greenfe.update_greenfee()
+    instance.payment_info.update_greenfee()

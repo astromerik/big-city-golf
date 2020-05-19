@@ -1,7 +1,7 @@
 from django import forms
 from .models import TeeTimePurchase, PaymentInfo
 
-class PurchaseForm(forms.ModelForm):
+class PaymentInfoForm(forms.ModelForm):
     class Meta:
         model = PaymentInfo
         fields = ('first_name', 'last_name', 'email', 'phone_number')

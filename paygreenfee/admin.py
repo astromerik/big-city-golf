@@ -6,7 +6,6 @@ from .models import TeeTimePurchase, PaymentInfo
 
 class TeeTimePurchaseAdmin(admin.TabularInline):
     model = TeeTimePurchase
-    readonly_fields = ('player',)
 
 
 class PaymentInfoAdmin(admin.ModelAdmin):

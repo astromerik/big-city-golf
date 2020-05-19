@@ -36,32 +36,20 @@
 
     <p> you have no current tee times</p>
 
-    {% endif %}
-    <div class="col-12 col-lg-6">
-                <form action="{% url 'paygreenfee' %}" method="POST">
-                    {% csrf_token %}
-
-                        {{ purchase_form.first_name }}
-                        {{ purchase_form.last_name }}
-                        {{ purchase_form.email }}
-                        {{ purchase_form.phone_number }}
-                
-                <button type="submit">test</button>
-                </form>
-            </div>
-        </div>
-    <div class="col-12 col-lg-6">
-                <p class="text-muted">Please fill out the form below to complete your purchase</p>
+    {% endif %}               
+</div>
+            <div class="col-12 col-lg-6">
+                <p class="text-muted">Please fill out the form below to complete your order</p>
                 <form action="{% url 'paygreenfee' %}" method="POST" id="payment-form">
                     {% csrf_token %}
                     <fieldset class="rounded px-3 mb-5">
-                        <legend class="fieldset-label small text-black px-2 w-auto">Details</legend>
-                        {{ purchase_form.first_name }}
-                        {{ purchase_form.last_name }}
-                        {{ purchase_form.email }}
-                        {{ purchase_form.phone_number }}
-								<label class="form-check-label" for="id-save-info">Save this delivery information to my profile</label>
-                                <input class="form-check-input ml-2 mr-0" type="checkbox" id="id-save-info" name="save-info" checked>
+                        <legend class="fieldset-label small text-black px-2 w-auto">Payment information</legend>
+                        {{ payment_form.first_name }}
+                        {{ payment_form.last_name }}
+                        {{ payment_form.email }}
+                        {{ payment_form.phone_number }}
+                        <div class="form-check form-check-inline float-right mr-0">
+						</div>
                     </fieldset>
                     <fieldset class="px-3">
                         <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
@@ -72,10 +60,9 @@
                         <!-- Pass the client secret to the view so we can get the payment intent id -->
                         <input type="hidden" value="{{ client_secret }}" name="client_secret">
                     </fieldset>
-
                     <div class="submit-button text-right mt-5 mb-2">                    
 						<button id="submit-button" class="btn btn-black rounded-0">
-							<span class="font-weight-bold">Complete purchase</span>
+							<span class="font-weight-bold">Complete Order</span>
 							<span class="icon">
 								<i class="fas fa-lock"></i>
 							</span>
@@ -90,20 +77,17 @@
                 </form>
             </div>
         </div>
-
-{% for message in messages %}
-    {{ message }}
-{% endfor %}
-
-</div>
-<div id="loading-overlay">
+    </div>
+    <div id="loading-overlay">
         <h1 class="text-light logo-font loading-spinner">
             <span class="icon">
                 <i class="fas fa-3x fa-sync-alt fa-spin"></i>
             </span>
-    </h1>
-</div>
-
+        </h1>
+    </div>
+ {% for message in messages %}
+               {{ message }}
+            {% endfor %}
 
 {% endblock %}
 {% block postloadjs %}
