@@ -95,6 +95,7 @@ def book_course(request):
     # Otherwise, just add it to the bag
     if not course_id in set(course_bag.keys()):
         course_bag[course_id] = [bag_entry,]
+        print(course_bag[course_id])
     else:
         course_bag[course_id].append(bag_entry)
     request.session['course_bag'] = course_bag

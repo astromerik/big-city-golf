@@ -20,9 +20,9 @@ class PaymentInfoForm(forms.ModelForm):
             'phone_number': 'Phone Number',
         }
 
-        self.fields['first_name'].widget.attrs['autofocus'] = True
-        for field in self.fields:
-            placeholder = placeholders[field]
-            self.fields[field].widget.attrs['placeholder'] = placeholder
-            self.fields[field].widget.attrs['class'] = 'stripe-style-input'
-            self.fields[field].label = False
+        # self.fields['first_name'].widget.attrs['autofocus'] = True
+        # for field in self.fields:
+        #     placeholder = placeholders[field]
+        #     self.fields[field].widget.attrs['placeholder'] = placeholder
+        #     self.fields[field].widget.attrs['class'] = 'stripe-style-input'
+        #     self.fields[field].label = False
