@@ -19,4 +19,4 @@ class TestViews(TestCase):
 
     def test_book_tee_time(self):
         response = self.client.post('courses/book/', {'course': 'Test add booking'})
-        self.assertRedirects(response, 'paygreenfee/paygreenfee.html')
+        self.assertRedirects(response, 'paygreenfee')

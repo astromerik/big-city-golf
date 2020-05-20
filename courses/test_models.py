@@ -6,5 +6,6 @@ from .models import TeeTime
 class TestModels(TestCase):
 
     def test_booked_defaults_to_true(self):
-        teetime = TeeTime.objects.create(tee_time='2020-09-09 08:00')
+        teetime = TeeTime.objects.create(course_id='1', tee_time='2020-06-06 13:30',
+                                         price=200, booked=True, player=1)
         self.assertTrue(teetime.booked)

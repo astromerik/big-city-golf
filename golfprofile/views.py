@@ -48,4 +48,4 @@ def delete_tee_time(request, tee_time_id):
     tee_time = TeeTime.objects.get(pk=tee_time_id)
     tee_time.delete()
 
-    return redirect('paygreenfee')
+    return redirect('golfprofile')
