@@ -52,9 +52,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">ABOUT</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">HELP</a>
-                </li>
                 {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'golfprofile' %}">PROFILE</a>
@@ -62,19 +59,19 @@
                 {% endif %}
             </ul>
             {% if request.user.is_authenticated %}
-            {% if 'course_bag' in request.session %}
-            <a href="{% url 'paygreenfee' %}" class="btn btn-success my-2 my-sm-0" type="submit">Pay Greenfee</a>
-            {% endif %}
-            <a href="{% url 'account_logout' %}" class="btn btn-outline-dark my-2 my-sm-0" type="submit">LOGOUT</a>
+                {% if 'course_bag' in request.session %}
+                    <a href="{% url 'paygreenfee' %}" class="btn btn-success my-2 my-sm-0" id="paygreenfeebutton" type="submit">Pay Greenfee</a>
+                {% endif %}
+                <a href="{% url 'account_logout' %}" class="btn btn-outline-dark my-2 my-sm-0" type="submit">LOGOUT</a>
             {% else %}
-            <a href="{% url 'account_signup' %}" class="btn btn-outline-dark my-2 my-sm-0" type="submit">LOGIN / SIGNUP</a>
+                <a href="{% url 'account_login' %}" class="btn btn-outline-dark my-2 my-sm-0" type="submit">LOGIN / SIGNUP</a>
             {% endif %}
         </div>
     </nav>
 
     {% block content %}
     {% endblock %}
-    <nav class="navbar navbar-expand-lg navbar-light justify-content-around bottomnavbar">
+    <nav class="navbar navbar-expand navbar-light justify-content-around bottomnavbar fixed-bottom">
         <div>
             <ul class="navbar-nav">
                 <li class="nav-item">

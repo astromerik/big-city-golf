@@ -97,3 +97,11 @@ def paygreenfee(request):
     }
 
     return render(request, template, context)
+
+
+def remove_tee_time_from_bag(request, course_id):
+    course_bag = request.session.get('course_bag', {})
+    course_bag.pop(course_id)
+
+    request.session['course_bag'] = course_bag
+    return render(reverse('courses'))

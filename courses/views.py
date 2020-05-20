@@ -85,16 +85,15 @@ def book_course(request):
         booked_time, "%Y-%m-%d %H:%M")
     booking_exist = TeeTime.objects.filter(course=course_id,
                                            tee_time=booked_time_test).exists()
-    print(booking_exist)
 
     # If so, return an error and redirect
     if booking_exist:
         messages.error(request, "Tee time is already booked")
         return redirect(reverse('courses'))
-    bag_entry = (booked_time, course.green_fee, course.course_name)
+    bag_entry = (booked_time, course.green_fee, course.course_name, course.img_url)
     # Otherwise, just add it to the bag
-    if not course_id in set(course_bag.keys()):
-        course_bag[course_id] = [bag_entry,]
+    if course_id not in set(course_bag.keys()):
+        course_bag[course_id] = [bag_entry, ]
         print(course_bag[course_id])
     else:
         course_bag[course_id].append(bag_entry)

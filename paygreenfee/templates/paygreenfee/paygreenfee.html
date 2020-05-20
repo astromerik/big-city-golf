@@ -8,60 +8,71 @@
 {% block content %}
 
 <div class="container-fluid">
-<h2> Hi {{ request.user }}</h2>
-
-{% for course, bookings in course_bag.items %}
-   {% for booking in bookings %}
-        <div class="row">
-            <div class="col">
-                <p><strong> Course:</strong> {{ booking.2 }}</p>
-                <p><strong> Tee time:</strong> {{ booking.0 }}</p>
-                <p><strong> Green fee:</strong> {{ booking.1 }}</p>
-            </div>
+<h2 class="text-center"> Hey {{ request.user }}! Let's get you on the golf course</h2>
+    <div class="row">
+        <div class="col-12 col-sm-6 text-center">
+            <h5 class="paygreenfee-topics">Here is what's in your golf bag</h5>
+            {% for course, bookings in course_bag.items %}
+            {% for booking in bookings %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="row bookingspecificimg">
+                            <img id="courseimg" src="{{ booking.3 }}" alt="course picture">
+                            </div>
+                            <p><strong> Course:</strong> {{ booking.2 }}</p>
+                            <p><strong> Tee time:</strong> {{ booking.0 }}</p>
+                            <p><strong> Green fee:</strong> {{ booking.1 }}</p>
+                            <a href="" class="btn btn-outline-dark" >Remove tee time</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
         </div>
-    {% endfor %}
-{% endfor %}
-
-<div class="row">
-            <div class="col-12 col-lg-6">
-                <p class="text-muted">Please fill out the form below to complete your order</p>
-                <form action="{% url 'paygreenfee' %}" method="POST" id="payment-form">
-                    {% csrf_token %}
-                    <fieldset class="rounded px-3 mb-5">
-                        <legend class="fieldset-label small text-black px-2 w-auto">Payment information</legend>
-                        {{ payment_form.first_name }}
-                        {{ payment_form.last_name }}
-                        {{ payment_form.email }}
-                        {{ payment_form.phone_number }}
-                        <div class="form-check form-check-inline float-right mr-0">
-						</div>
-                    </fieldset>
-                    <fieldset class="px-3">
-                        <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
-                        <!-- A Stripe card element will go here -->
-                        <div class="mb-3" id="card-element"></div>
-                        <!-- Used to display form errors -->
-                        <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
-                        <!-- Pass the client secret to the view so we can get the payment intent id -->
-                        <input type="hidden" value="{{ client_secret }}" name="client_secret">
-                    </fieldset>
-                    <div class="submit-button text-right mt-5 mb-2">                    
-						<button id="submit-button" class="btn btn-black rounded-0">
-							<span class="font-weight-bold">Complete Order</span>
-							<span class="icon">
-								<i class="fas fa-lock"></i>
-							</span>
-						</button>
-						<p class="small text-danger my-0">
-							<span class="icon">
-								<i class="fas fa-exclamation-circle"></i>
-							</span>
-							<span>Your card will be charged <strong>{{ total }} SEK</strong></span>
-						</p>
-					</div>
-                </form>
-            </div>
+        <div class="col-12 col-sm-6">
+        <h5 class="paygreenfee-topics">Pay and play</h5>
+            <p class="text-muted">Please fill out the form below to complete your order</p>
+            <form action="{% url 'paygreenfee' %}" method="POST" id="payment-form">
+                {% csrf_token %}
+                <fieldset class="rounded px-3 mb-5">
+                    <legend class="fieldset-label small text-black px-2 w-auto">Payment information</legend>
+                    <div class="row align-center">
+                    {{ payment_form.first_name }}
+                    </div>
+                    <div class="row">
+                    {{ payment_form.last_name }}
+                    </div>
+                    <div class="row">
+                    {{ payment_form.email }}
+                    </div>
+                    <div class="row">
+                    {{ payment_form.phone_number }}
+                    </div>
+                    <div class="form-check form-check-inline float-right mr-0">
+                    </div>
+                </fieldset>
+                <fieldset class="px-3">
+                    <legend class="fieldset-label small text-black px-2 w-auto">Card information</legend>
+                    <div class="mb-3" id="card-element"></div>
+                    <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                    <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                </fieldset>
+                <div class="submit-button text-right mt-5 mb-2">                    
+                    <button id="submit-button" class="btn btn-outline-dark">
+                        <span class="font-weight-bold">Complete purchase</span>
+                        <span class="icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </button>
+                    <p class="small text-danger my-0">
+                        <span class="icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </span>
+                        <span>Your card will be charged <strong>{{ total }} SEK</strong></span>
+                    </p>
+                </div>
+            </form>
         </div>
+    </div>
     </div>
     <div id="loading-overlay">
         <h1 class="text-light logo-font loading-spinner">

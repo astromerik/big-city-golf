@@ -1,7 +1,7 @@
 body {
     padding-top: 100px;
     font-family: 'Jost', sans-serif;
-;
+    max-width: 2140px;
 }
 
 nav, .nav {
@@ -21,7 +21,8 @@ nav, .nav {
 }
 
 .bottomnavbar {
-    margin-top: 50px;
+    margin-top: 100px;
+    border-top: 2px solid black;
 }
 
 .indexheding {
@@ -47,6 +48,10 @@ h5 {
     max-height: 40px;
 }
 
+#paygreenfeebutton {
+    margin-right: 20px;
+}
+
 /* home page */
 
 #golfvideo {
@@ -59,7 +64,11 @@ h5 {
 }
 
 .infotext {
-    margin-top: 50px;
+    margin-top: 80px;
+}
+
+.infotext h6 {
+    margin-top: 20px;
 }
 
 .golfcourse {
@@ -92,9 +101,15 @@ min-width: 100% !important;
     font-size: 24px;
 }
 
+.homepageimg {
+    max-height: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 90px;
+}
+
 /* Courses */
-
-
 
 #courseimg {
     border-radius: 50%;
@@ -129,6 +144,13 @@ min-width: 100% !important;
     color: white;
 }
 
+.dropdown-menu {
+    margin-bottom: 16px;
+}
+
+#course-link, #sort-link {
+    margin-bottom: 16px;
+}
 /* Course detail page */
 
 #detailimage {
@@ -136,15 +158,31 @@ min-width: 100% !important;
     max-height: 500px;
 }
 
-#overlay {
-  position: fixed; 
-  display: none; 
-  width: 100%; 
-  height: 100%; 
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.7); 
-  z-index: 2; 
+/* Pay greenfee page */
+
+.paygreenfee-topics {
+    margin-bottom: 50px;
+}
+
+.bookingspecificimg {
+    position: relative;
+    min-width: 100% !important;
+    margin-bottom: 20px;
+}
+
+.stripe-style-input {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 2px solid black;
+}
+
+/*  profile page */
+
+.profile-topics {
+    margin-bottom: 50px;
+}
+
+.purchasedteetime {
+    margin-top: 20px;
+    margin-bottom: 16px;
 }

@@ -23,7 +23,7 @@ Cropping the video - Clideo
 
 
 <h1 align="center">
-<a href="https://astromerik-big-city-golf.herokuapp.com/" target="_blank"> Logo here????????????????</a>  
+<a href="https://astromerik-big-city-golf.herokuapp.com/" target="_blank"><img src="static/images/logo.png" alt="Big city golf logo"></a>
 </h1>
 
 <div align="center">
