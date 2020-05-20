@@ -42,3 +42,10 @@ def golfprofile(request):
                    'purchased_tee_times': purchased_tee_times,
                    })
 
+@login_required
+def delete_tee_time(request, tee_time_id):
+    """ Delete the booked tee time """
+    tee_time = TeeTime.objects.get(pk=tee_time_id)
+    tee_time.delete()
+
+    return redirect('paygreenfee')

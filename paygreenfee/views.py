@@ -1,57 +1,33 @@
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse, reverse
-from django.views.decorators.http import require_POST
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
-from datetime import datetime
 
 # from paygreenfee.contexts import course_bookings
 from .forms import PaymentInfoForm
 from courses.models import TeeTime, Course
 from golfprofile.models import UserProfile
-from .models import PaymentInfo, TeeTimePurchase
-from courses.forms import TeeTimeForm
-from courses.contexts import course_bookings
+from .models import TeeTimePurchase
 
 import stripe
 import json
 # Create your views here.
 
 
-# @require_POST
-# def cache_checkout_data(request):
-#     try:
-#         pid = request.POST.get('client_secret').split('_secret')[0]
-#         stripe.api_key = settings.STRIPE_SECRET_KEY
-#         stripe.PaymentIntent.modify(pid, metadata={
-#             'course_bag': json.dumps(request.session.get('course_bag', {})),
-#             'username': request.user,
-#         })
-#         return HttpResponse(status=200)
-#     except Exception as e:
-#         messages.error(request, ('Sorry, your payment cannot be '
-#                                  'processed right now. Please try '
-#                                  'again later.'))
-#         return HttpResponse(content=e, status=400)
-
-
 @login_required
 def paygreenfee(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-    
-    current_user = get_object_or_404(UserProfile, user=request.user)
     course_bag = request.session.get('course_bag', {})
-    tee_times = TeeTime.objects.filter(player=current_user)
     payment_form = PaymentInfoForm()
-    green_fee_grand_total = sum([entry[0][1] for entry in list(course_bag.values())])
+    green_fee_grand_total = sum(
+                        [entry[0][1] for entry in list(course_bag.values())])
     stripe.api_key = stripe_secret_key
     intent = stripe.PaymentIntent.create(
                     amount=green_fee_grand_total,
                     currency=settings.STRIPE_CURRENCY,
                     )
-    print(intent)
-    
+
     if request.method == 'POST':
         form_data = {
             'first_name': request.POST['first_name'],
@@ -78,6 +54,7 @@ def paygreenfee(request):
                     booked_time_green_fee = booked_time[1]
                     tee_time = TeeTime.objects.create(
                         tee_time=booked_time_string,
+                        price=booked_time_green_fee,
                         course=course,
                         player=player,
                         booked=True
@@ -92,36 +69,31 @@ def paygreenfee(request):
                         total_greenfee=booked_time_green_fee,
                     )
                     create_tee_time_purchase.save()
-            
+
             if 'course_bag' in request.session:
                 del request.session['course_bag']
-            
+                return redirect(reverse('golfprofile'))
+
         else:
-            messages.error(request, "Yor form was not filled in correctly, please try again.")
+            messages.error(request,
+                           "Yor form was not filled in correctly,"
+                           " please try again.")
             return redirect(reverse('courses'))
+
     else:
 
         course_bag = request.session.get('course_bag', {})
         if not course_bag:
             messages.error(request, ('You have no tee times booked....'))
-    
+
     template = 'paygreenfee/paygreenfee.html'
 
     context = {
         'payment_form': payment_form,
-        'tee_times': tee_times,
         'total': green_fee_grand_total,
         'stripe_public_key': stripe_public_key,
         'client_secret': intent.client_secret,
+        'course_bag': course_bag,
     }
 
     return render(request, template, context)
-
-
-@login_required
-def delete_tee_time(request, tee_time_id):
-    """ Delete the booked tee time """
-    tee_time = TeeTime.objects.get(pk=tee_time_id)
-    tee_time.delete()
-
-    return redirect('paygreenfee')

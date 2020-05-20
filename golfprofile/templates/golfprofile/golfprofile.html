@@ -6,24 +6,50 @@
 
 <div class="container-fluid">
 <h2> Hi {{ request.user }}</h2>
-<div class="row">
-<div class="col-5">
-    <h5>Here are your current tee times</h5>
-    {% for teetimes in tee_times %}
-    <ul>
-        <li>
-        {{ teetimes.course }}
-        </li>
-        <li>
-        {{ teetimes.tee_time }}
-        </li>
-        <li>
-        {{ teetimes.price }} SEK
-        </li>
-        {% csrf_token %}
-    </ul>
-    {% endfor %}
-</div>
+    <div class="row">
+        <div class="col-5">
+            <h5>Here are your current tee times</h5>
+            {% for teetimes in tee_times %}
+            <ul>
+                <li>
+                {{ teetimes.course }}
+                </li>
+                <li>
+                {{ teetimes.tee_time }}
+                </li>
+                <li>
+                {{ teetimes.price }} SEK
+                </li>
+                {% csrf_token %}
+            </ul>
+            <a href="#teetime{{teetimes.id }}" id="cancelteetime" value="{{ teetimes.id }}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#teetime{{ teetimes.id }}">Delete tee time</a>
+        </div>
+        {% endfor %}
+        
+        {% for teetimes in tee_times %}
+        <div class="modal fade" id="#teetime{{ teetimes.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">{{ tee_times.course }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6>Are you sure you want to delte the tee time?</h6>
+                    <p>Since you have already paid the greenfee we cannot garantee a refund. Please contact the golf club directly.</p>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a href="{% url 'delete_tee_time' teetimes.id %}">
+                            <button class="btn btn-danger">Yes, delete tee time</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
 
     <div class="col-5">
         <form action="{% url 'golfprofile' %}" method="post">

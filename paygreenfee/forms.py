@@ -1,5 +1,6 @@
 from django import forms
-from .models import TeeTimePurchase, PaymentInfo
+from .models import PaymentInfo
+
 
 class PaymentInfoForm(forms.ModelForm):
     class Meta:

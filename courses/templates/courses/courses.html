@@ -80,11 +80,6 @@
       <form action="{% url 'book_course' %}" method="post">
         <div class="modal-body">
                 {% csrf_token %}
-                <!-- This one is not working
-                <p>
-                    <label for="id_tee_time">Tee time:</label>
-                    <input type="datetime-local" name="tee_time" required id="id_tee_time">
-                </p> -->
                 <p>
                 <label for="id_course">Course:</label>
                 <select name="course" required id="id_course">

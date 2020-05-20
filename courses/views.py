@@ -3,8 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.db.models import Q
-from .models import Course, TeeTime, UserProfile
+
+from .models import Course, TeeTime
 from .forms import TeeTimeForm
+
 from datetime import datetime
 # Create your views here.
 
@@ -67,9 +69,11 @@ def course_detail(request, course_id):
 
     return render(request, 'courses/course_detail.html', context)
 
+
+@login_required
 @require_POST
 def book_course(request):
-    # Get the "bag" of courses that the user wants to book 
+    # Get the "bag" of courses that the user wants to book
     course_bag = request.session.get('course_bag', {})
 
     # Get the course id/tee time for the current course they are booking
@@ -87,7 +91,7 @@ def book_course(request):
     if booking_exist:
         messages.error(request, "Tee time is already booked")
         return redirect(reverse('courses'))
-    bag_entry = (booked_time, course.green_fee)
+    bag_entry = (booked_time, course.green_fee, course.course_name)
     # Otherwise, just add it to the bag
     if not course_id in set(course_bag.keys()):
         course_bag[course_id] = [bag_entry,]
@@ -95,42 +99,5 @@ def book_course(request):
         course_bag[course_id].append(bag_entry)
     request.session['course_bag'] = course_bag
 
-    # tee_time_form = TeeTimeForm(request.POST)
-
-    # if tee_time_form.is_valid():
-    #     booked_tee_time = tee_time_form.save(commit=False)
-    #     booked_tee_time.booked = True
-    #     p = get_object_or_404(UserProfile, user=request.user)
-    #     booked_tee_time.player_id = p.id
-    #     booked_tee_time.save()
-
     return redirect(reverse('paygreenfee'))
 
-
-#  @login_required
-# def book_tee_time(request):
-#     """ A view to book a tee time """
-
-#     course_id = request.POST.get('course')
-#     course = get_object_or_404(Course, pk=course_id)
-#     booked_time = request.POST.get('tee_time')
-#     booking_exist = TeeTime.objects.filter(course=course_id,
-#                                            tee_time=booked_time).exists()
-#     course_bag = request.session.get('course_bag', {})
-
-#     if booking_exist:
-#         messages.error(request, "Tee time is already booked")
-#         return redirect(reverse('courses'))
-
-#     tee_time_form = TeeTimeForm(request.POST)
-
-#     if tee_time_form.is_valid():
-#         booked_tee_time = tee_time_form.save(commit=False)
-#         booked_tee_time.booked = True
-#         p = get_object_or_404(UserProfile, user=request.user)
-#         booked_tee_time.player_id = p.id
-#         booked_tee_time.save()
-
-#         return render(request, 'paygreenfee/paygreenfee.html',
-#                       {'tee_time_form': tee_time_form,
-#                        'course': course})

@@ -62,7 +62,9 @@
                 {% endif %}
             </ul>
             {% if request.user.is_authenticated %}
+            {% if 'course_bag' in request.session %}
             <a href="{% url 'paygreenfee' %}" class="btn btn-success my-2 my-sm-0" type="submit">Pay Greenfee</a>
+            {% endif %}
             <a href="{% url 'account_logout' %}" class="btn btn-outline-dark my-2 my-sm-0" type="submit">LOGOUT</a>
             {% else %}
             <a href="{% url 'account_signup' %}" class="btn btn-outline-dark my-2 my-sm-0" type="submit">LOGIN / SIGNUP</a>

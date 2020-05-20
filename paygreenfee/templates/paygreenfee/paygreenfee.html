@@ -9,35 +9,20 @@
 
 <div class="container-fluid">
 <h2> Hi {{ request.user }}</h2>
-{{ request.session.course_bag }}
+
+{% for course, bookings in course_bag.items %}
+   {% for booking in bookings %}
+        <div class="row">
+            <div class="col">
+                <p><strong> Course:</strong> {{ booking.2 }}</p>
+                <p><strong> Tee time:</strong> {{ booking.0 }}</p>
+                <p><strong> Green fee:</strong> {{ booking.1 }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}
 
 <div class="row">
-<div class="col-5">
-    <h5>Pay greenfee</h5>
-    {% if tee_times %}
-        {% for teetimes in tee_times %}
-        <ul>
-            <li>
-            {{ teetimes.course }}
-            </li>
-            <li>
-            {{ teetimes.tee_time }}
-            </li>
-            <li>
-            {{ teetimes.price}} SEK
-            </li>
-            {% csrf_token %}
-            <a href="{% url 'delete_tee_time' teetimes.id %}">
-            <button class="btn btn-outline-dark">Remove tee time</button>
-        </a>
-        </ul>
-        {% endfor %}
-    {% else %}
-
-    <p> you have no current tee times</p>
-
-    {% endif %}               
-</div>
             <div class="col-12 col-lg-6">
                 <p class="text-muted">Please fill out the form below to complete your order</p>
                 <form action="{% url 'paygreenfee' %}" method="POST" id="payment-form">
