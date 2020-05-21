@@ -34,5 +34,5 @@ class TestViews(TestCase):
         course_bag[course.id] = [('2020-06-06 13:30', 200, 'test course', '')]
         response = self.client.post('book/', course_bag)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'paygreenfee.html')
+        self.assertTemplateUsed(response, 'courses/courses.html')
 

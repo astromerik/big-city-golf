@@ -99,5 +99,5 @@ def book_course(request):
         course_bag[course_id].append(bag_entry)
     request.session['course_bag'] = course_bag
 
-    return redirect(reverse('paygreenfee'))
+    return redirect('courses')
 

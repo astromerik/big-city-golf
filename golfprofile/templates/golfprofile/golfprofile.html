@@ -7,8 +7,9 @@
 <div class="container-fluid">
 <h2 class="text-center"> Hi {{ request.user }}</h2>
     <div class="row">
-        <div class="col-6 text-center">
+        <div class="col-12 col-sm-6 text-center">
             <h5 class="profile-topics">Here are your previous purchases</h5>
+            
             {% for teetimes in tee_times %}
                 <h4 class="purchasedteetime">
                 {{ teetimes.course }}
@@ -20,10 +21,10 @@
                 {{ teetimes.price }} SEK
                 </p>
             <a href="#teetime{{teetimes.id }}" id="cancelteetime" value="{{ teetimes.id }}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#teetime{{ teetimes.id }}">Delete tee time</a>
+            {% endfor %}
+            
         </div>
-        {% endfor %}
-
-        <div class="col-8 col-sm-4">
+        <div class="col-12 col-sm-5 align-self-center">
             <h5 class="profile-topics">Profile information</h5>
             <form action="{% url 'golfprofile' %}" method="post">
                 {% csrf_token %}
@@ -68,12 +69,6 @@
     </div>
 </div>
 {% endfor %}
-
-{% for message in messages %}
-    {{ message }}
-{% endfor %}
-
-
 
 
 {% endblock %}
