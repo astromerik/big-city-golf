@@ -1,35 +1,16 @@
-
-
-
-Project roadmap:
-Start with setting up Django/Allauth
-Create landing page and base.html
-Create home/landing page
-Create login functionality
-Create and/or import a datafile of golf courses
-Create course page - golf courses, filtering system (maybe rating functionality?)
-Create booking functionality - maximum 4 people on the same time spot (10 minutes between every tee time?) including a payment placeholder
-Create profile page - view current bookings, earlier bookings, able to change or delete 
-Add Stripe functionality 
-Add email confirmations 
-
-
-
-Meta tag in base header (X-UA-Compatible) is to ensure compatability with older ie browsers.
-
-Pictures and video from Pixaby (Stress.png - Bellinon)
-logotypes made in logomkr
-Cropping the video - Clideo
-
-
 <h1 align="center">
-<a href="https://astromerik-big-city-golf.herokuapp.com/" target="_blank"><img src="static/images/logo.png" alt="Big city golf logo"></a>
+<a href="https://astromerik-big-city-golf.herokuapp.com/" target="_blank"><img src="static/media/logo.png" alt="Big city golf logo"></a>
 </h1>
 
 <div align="center">
 
 [View this website through Heroku](https://astromerik-big-city-golf.herokuapp.com/) 
 </div>
+
+Big City Golf was built to achive a easier way to book tee times on golf courses in big cities. In Sweden, the booking system for tee times provided by the Swedish Golf Association have had a har time running propperly during the first month of 2020, thus an alternative would be welcome.
+The application contains different pages depending of if the user is logged in or not. 
+If the user is not logged in the site displays, a home page, a course page, a login/sign up page and an about page.
+If the user is logged in a profile page and a page for booking/purchasing tee times is available.
 
 
 The goal of the application is:
@@ -66,11 +47,13 @@ The users goals are:
 
 #### Balsamiq mockups
 
-To see the initial wireframes for the application click <a href="" target="_blank">here</a>
+To see the initial wireframes for the application click <a href="static/media/wireframes/big-city-golf-firstdraft.pdf" target="_blank">here</a>
 
 ## Featureas
 
 ### Navigation bar and footer 
+
+<img src="static/media/demo/demologgedinnavbar.png" alt="Demonstration navbar" style="max-height:300px;">
 
 On the top of the website we find a fixed navbar which conotains the optons "Home", "Courses, "About" and "Login/Signup". 
 If the user is logged in the option "Profile" will appear which takes the logged in user to their profile page. 
@@ -82,12 +65,16 @@ In the footer we also find a all rights revserved statement.
 
 ### Home page
 
+<img src="static/media/demo/demohompage.png" alt="Demonstration hompage" style="max-height:300px;">
+
 The home page is a clean page with little information and plenty of space between the different objects on the page. 
 A welcoming video of a group of golfers is autoplaying and a short statement is presented next to it. Another button for signing up is added below the statement which is exhange for a "find tee time" button if user is logged in (which redirects the user to the courses page).
 further down on the page we find some quotes why golf is good for stress releif and a short presentation about the application.
 On the button of the page another golf picture with the button for searching the courses is presented. 
 
 ### Courses page/Course detail page
+
+<img src="static/media/demo/democourses.png" alt="Demonstration courses" style="max-height:300px;">
 
 On the courses page the user find all the courses in the database. 
 The user can choose to sort the courses based on rating, price or location. The user can also search for a golf corse by passing in text in the input field. 
@@ -98,11 +85,15 @@ When the booking form is completed the user get redirected to the checkout page 
 
 ### Pay greenfee page
 
+<img src="static/media/demo/demopay.png" alt="Demonstration checkout" style="max-height:300px;">
+
 The pay greenfee page (or the checkout page) is displaying the tee times the user want to book/pay for and the payment form (the information needed for passing the purchase to Stripe)
 If the payment form is completed correctly the user is redirected to their profile page.
 
 
 ### Profile page 
+
+<img src="static/media/demo/demoprofile.png" alt="Demonstration profilepage" style="max-height:300px;">
 
 On the users profile page, the user can see all the teetimes they have purchased and their profile information. 
 The profile infomration is editable by using the presented form. 
@@ -111,14 +102,15 @@ For every booked tee time there is a delete tee time button. If clicked, a warni
 
 ### About page
 
+The about page is a simple page whit a Big city golf logo and some statements what the 'company' stands for and wish to provide. 
 
 ### Database 
 
-The database used in development mode is sqllite3 and in Heroku PostgreSQL. The database consist of the golf courses which are conected to a district.
-All user profiles are conected to django alauth User model. All TeeTimes are dependent on the user profile. 
-All purchases are dependent on TeeTimes. 
+<img src="static/media/demo/demodatabase.png" alt="Demonstration database" style="max-height:300px;">
 
-MAKE AN IMAGE TO INCLUDE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+The database used in development mode is sqllite3 and in Heroku PostgreSQL. 
+The database has a hierarchical structure where UserProfile is dependent on User, Courses of Districts and so on.
+
 
 
 
@@ -126,7 +118,7 @@ MAKE AN IMAGE TO INCLUDE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 * Navigation bar - Collabsable when screen size is below 993 pixels, different options depending if user is logged in or not
 * Login functionality - Fully functional login and user registration process
-* CRUD - Users are able to upload, read, and delete content in the database.
+* CR(U)D - Users are able to upload, read and delete content in the database.
 * Sorting - Users are able to sort through golf courses. 
 * Stripe payment functionality
 
@@ -141,20 +133,25 @@ MAKE AN IMAGE TO INCLUDE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 * The website was built using HTML5 and CSS3. 
 * JavaScript was used to build an interactive webpage and to connect to an API.
 * Python was used to build the structure and functionality of the back end.
-
+* Django was used as the framwork to make the development of the application more simplistic. 
 * [Heroku](https://www.heroku.com/) was used to deploye the live version of the application.
-
-
+* [Bootstrap](https://www.bootstrap.com/) was used as a library for design and layout.
 * The website as built and developed using [GitPod](https://www.gitpod.io/) as IDE.
 * The logotype was created using [LogoMakr](https://logomakr.com).
-
 * [W3C's HTLM Validator](https://validator.w3.org/) were used to validate the websites HTML code. 
 * [W3C's CSS Validator](https://validator.w3.org/) were used to validate the websites CSS code. 
 * [JSHint](https://jshint.com/) were used to validate the websites JavaScript code. 
 
 ## Testing
 
+Manual testing has been performed throughout the page with 2 errors occuring and 1 design flaw. 
+When the user is deleting a teetime from the bag, the pay greenfee button remain in the header. When clicked (without items in bag) a stripe error occurs since the paygreenfee page cannot be accesed without a amount/price of the items in the bag. 
+The reason for this error is because the bag is not completely cleared. 
+The second error is due to a conflict in the Bootstrap CDNs which are needed for Stripe card input and the toasts (info messages for users when performing an action). The CDN for the toast requires a new version of the Bootstrap CDN whilst the stripe requires an older version. 
+Due to the limited time before making the application go live, the stripe card input was prioritized, thus the application lacks toasts. 
+The design flaw is regarding the sorting functionality on the course page. Users can filter on districts or sort on rating/price but the user cannot filter within a district. This will be investigated further.  
 
+Further automated testing has been completed and circa 50 % of the code have currently beeing tested as of today. See specific app for test files.
 
 ## Deployment
 

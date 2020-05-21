@@ -10,7 +10,8 @@
         <div class="col-12 col-sm-6 text-center">
             <h5 class="profile-topics">Here are your previous purchases</h5>
             
-            {% for teetimes in tee_times %}
+            {% for teetimes in purchased_tee_times %}
+                <img id="courseimg" src="{{ teetimes.course.img_url }}" alt="course picture">
                 <h4 class="purchasedteetime">
                 {{ teetimes.course }}
                 </h4>
@@ -18,7 +19,7 @@
                 {{ teetimes.tee_time }}
                 </p>
                 <p>
-                {{ teetimes.price }} SEK
+                {{ teetimes.greenfee }} SEK
                 </p>
             <a href="#teetime{{teetimes.id }}" id="cancelteetime" value="{{ teetimes.id }}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#teetime{{ teetimes.id }}">Delete tee time</a>
             {% endfor %}
@@ -45,7 +46,7 @@
         </div>
     </div>
 </div>
-{% for teetimes in tee_times %}
+{% for teetimes in purchased_tee_times %}
 <div class="modal fade" id="teetime{{ teetimes.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -69,6 +70,6 @@
     </div>
 </div>
 {% endfor %}
-
-
+{% block postloadjs %}
+{% endblock %}
 {% endblock %}

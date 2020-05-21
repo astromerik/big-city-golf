@@ -17,18 +17,18 @@
                     <div class="row">
                         <div class="col">
                             <div class="row bookingspecificimg">
-                            <img id="courseimg" src="{{ course.img_url }}" alt="course picture">
+                            <img id="courseimg" src="{{ t.course.img_url }}" alt="course picture">
                             </div>
-                            <p><strong> Course:</strong> {{ course.name }}</p>
+                            <p><strong> Course:</strong> {{ t.course }}</p>
                             <p><strong> Tee time:</strong> {{ t.tee_time }}</p>
-                            <p><strong> Green fee:</strong> {{ course.green_fee }}</p>
-                            <a href="{% url 'remove_tee_time_from_bag' t.id %}" class="btn btn-outline-dark" >Remove tee time</a>
+                            <p><strong> Green fee:</strong> {{ t.course.green_fee }} SEK</p>
+                            <a href="{% url 'remove_tee_time_from_bag' t.id %}" class="btn btn-outline-dark coursebagbutton" >Remove tee time</a>
                         </div>
                     </div>
                 {% endfor %}
             {% endfor %}
         </div>
-        <div class="col-12 col-sm-6">
+        <div class="col-12 col-sm-5">
         <h5 class="paygreenfee-topics">Pay and play</h5>
             <p class="text-muted">Please fill out the form below to complete your order</p>
             <form action="{% url 'paygreenfee' %}" method="POST" id="payment-form">

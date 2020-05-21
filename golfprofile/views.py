@@ -46,7 +46,7 @@ def golfprofile(request):
 @login_required
 def delete_tee_time(request, tee_time_id):
     """ Delete the booked tee time """
-    tee_time = TeeTime.objects.get(pk=tee_time_id)
+    tee_time = TeeTimePurchase.objects.get(pk=tee_time_id)
     tee_time.delete()
     # flash a message to confirm ? Not required.
     return redirect('golfprofile')

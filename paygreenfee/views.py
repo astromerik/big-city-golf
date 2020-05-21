@@ -1,12 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 
-# from paygreenfee.contexts import course_bookings
 from .forms import PaymentInfoForm
 from courses.models import TeeTime, Course
-from golfprofile.models import UserProfile
 from .models import TeeTimePurchase
 
 import stripe
@@ -98,18 +98,59 @@ def paygreenfee(request):
 
 
 def remove_tee_time_from_bag(request, teetime_id):
-    print("We are here")
     course_bag = request.session.get('course_bag', {})
-    print(course_bag)
     teetime = get_object_or_404(TeeTime, pk=teetime_id)
-    print(teetime)
     course_id = str(teetime.course.id)
-    print(course_id)
 
     if course_id in course_bag.keys():
-        print("I'm there")
+
         if teetime.id in course_bag[course_id]:
             course_bag[course_id].remove(teetime.id)
             request.session['course_bag'] = course_bag
-    print(course_bag)
-    return redirect(reverse('paygreenfee'))
+
+    return redirect(reverse('courses'))
+
+
+@csrf_exempt
+def stripe_webhook(request):
+
+    wh_secret = settings.STRIPE_WH_SECRET
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, wh_secret
+        )
+    except ValueError as e:
+        # Invalid payload
+        return HttpResponse(content=e, status=400)
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return HttpResponse(content=e, status=400)
+    except Exception as e:
+        return HttpResponse(content=e, status=400)
+
+    # Set up a webhook handler
+    handler = StripeWH_Handler(request)
+
+    # Map webhook events to relevant handler functions
+    event_map = {
+        'payment_intent.succeeded': handler.handle_payment_intent_succeeded,
+        'payment_intent.payment_failed': handler.handle_payment_intent_payment_failed,
+    }
+
+    # Get the webhook type from Stripe
+    event_type = event['type']
+
+    # If there's a handler for it, get it from the event map
+    # Use the generic one by default
+    event_handler = event_map.get(event_type, handler.handle_event)
+
+    # Call the event handler with the event
+    response = event_handler(event)
+    print(response)
+    return response

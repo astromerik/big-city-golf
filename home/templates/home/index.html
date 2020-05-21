@@ -13,7 +13,7 @@
             {% if request.user.is_authenticated %}
             <a href="{% url 'courses' %}" id="homelogin" type="button" class="btn btn-outline-success">Find Tee Times</a>
             {% else %}
-            <a href="{% url 'account_signup' %}" id="homelogin" type="button" class="btn btn-outline-success">Create Account</a>
+            <a href="{% url 'account_signup' %}" id="homesignup" type="button" class="btn btn-outline-success">Create Account</a>
             {% endif %}
             </div>
         </div>
@@ -46,7 +46,7 @@
     <div class="row">
         <div class="col-md-6 text-center infotext">
             <i class="far fa-flag fa-2x"></i>
-            <h6>Book and read about golf courses close to big cities</h6>
+            <h6>Book tee times at golf courses close to big cities</h6>
         </div>
         <div class="col-md-6 text-center infotext">
         <i class="fas fa-info fa-2x"></i>

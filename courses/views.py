@@ -98,7 +98,8 @@ def book_course_teetime(request):
     teetime = TeeTime.objects.create(course=course,
                                      tee_time=teetime_as_date,
                                      player=request.user.userprofile,
-                                     booked=False)
+                                     booked=False
+                                     )
     teetime.save()
 
     # Otherwise, just add it to the bag
