@@ -197,3 +197,11 @@ min-width: 100% !important;
     margin-top: 20px;
     margin-bottom: 16px;
 }
+
+/* About page */
+
+.aboutimage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

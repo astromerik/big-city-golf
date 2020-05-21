@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col">
+            <img src="{% static 'media/logo.png' %}" class="aboutimage" alt="stress">
+        </div>
+    </div>
+    <div class="row justify-content-around text-center">
+        <div class="col-8 col-sm-3">
+            <h3>We love golf</h3>
+            <p>A 300 yard drive, a chip-in for eagle or a duck-hook which end up out of bounds. I does not matter, we love all aspects of golf</p>
+        </div>
+        <div class="col-8 col-sm-3">
+            <h3>We love big cities</h3>
+            <p>Even though the life in big cities can be stressful, they are often sorrounded by plenty of high quality golf courses.
+            We will help you to find a tee time in your city!</p>
+        </div>
+        <div class="col-8 col-sm-3">
+            <h3>We love simplicity</h3>
+            <p>Finding a tee time should not be a struggle. We at Big City Golf want to make it easier for golfers to get out and hit that white little thing.</p>
+        </div>
+    </div>
+</div>
+<div class="container course-container">
+    <div class="row justify-content-around golfcourse">
+        <div class="col-12">
+            <img src="{% static 'media/aboutgolf.jpg' %}" class="w-100" alt="golfcourse">
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'courses' %}" type="button" class="btn btn-success">Find a golf course</a>
+            {% else %}
+            <a href="{% url 'account_signup' %}" type="button" class="btn btn-success">Join today</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
