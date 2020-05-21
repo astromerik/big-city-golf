@@ -5,4 +5,4 @@ from .models import TeeTime
 class TeeTimeForm(forms.ModelForm):
     class Meta:
         model = TeeTime
-        fields = ['tee_time', 'course', 'price']
+        fields = ['tee_time', 'course']
