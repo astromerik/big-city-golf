@@ -53,7 +53,7 @@ To see the initial wireframes for the application click <a href="static/media/wi
 
 ### Navigation bar and footer 
 
-<img src="static/media/demo/demologgedinnavbar.png" alt="Demonstration navbar" style="max-height:300px;">
+<img src="static/media/demo/demonavbar.png" alt="Demonstration navbar" style="max-height:300px;">
 
 On the top of the website we find a fixed navbar which conotains the optons "Home", "Courses, "About" and "Login/Signup". 
 If the user is logged in the option "Profile" will appear which takes the logged in user to their profile page. 
@@ -65,7 +65,7 @@ In the footer we also find a all rights revserved statement.
 
 ### Home page
 
-<img src="static/media/demo/demohompage.png" alt="Demonstration hompage" style="max-height:300px;">
+<img src="static/media/demo/demohomepage.png" alt="Demonstration hompage" style="max-height:300px;">
 
 The home page is a clean page with little information and plenty of space between the different objects on the page. 
 A welcoming video of a group of golfers is autoplaying and a short statement is presented next to it. Another button for signing up is added below the statement which is exhange for a "find tee time" button if user is logged in (which redirects the user to the courses page).
