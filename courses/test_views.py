@@ -29,6 +29,10 @@ class TestViews(TestCase):
 
     def test_add_to_course_bag(self):
         self.client.login(username='testlogin', password='thisisatest123')
-        response = self.client.post('book/', [('2020-06-06 13:30', 1500, 'Barsebäck G&CC')])
-        self.assertRedirects(response, 'paygreenfee/')
+        course_bag = {}
+        course = Course.objects.create(course_name='test course', green_fee=200, img_url='someimg.png')
+        course_bag[course.id] = [('2020-06-06 13:30', 200, 'test course', '')]
+        response = self.client.post('book/', course_bag)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'paygreenfee.html')
 

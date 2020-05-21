@@ -52,6 +52,16 @@ h5 {
     margin-right: 20px;
 }
 
+.message-box {
+    position: fixed;
+    top: 80px;
+    right: 50px;
+    z-index: 9999;
+}
+
+.toast {
+    border: 2px solid black;
+}
 /* home page */
 
 #golfvideo {

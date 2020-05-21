@@ -72,6 +72,9 @@ def paygreenfee(request):
 
             if 'course_bag' in request.session:
                 del request.session['course_bag']
+                messages.success(request, f'Your tee time '
+                                 'is now booked. '
+                                 'Good luck on the course!')
                 return redirect(reverse('golfprofile'))
 
         else:

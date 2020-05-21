@@ -23,18 +23,27 @@
         </div>
         {% endfor %}
 
-        <div class="col-6 ml-auto">
+        <div class="col-8 col-sm-4">
             <h5 class="profile-topics">Profile information</h5>
             <form action="{% url 'golfprofile' %}" method="post">
                 {% csrf_token %}
                 <!-- From User -->
-                {{ user_form.as_p }}
+                {{ user_form.username | as_crispy_field }}
+                {{ user_form.first_name | as_crispy_field }}
+                {{ user_form.last_name | as_crispy_field }}
+                {{ user_form.email | as_crispy_field }}
+                
                 <!-- From UserProfile -->
-                {{ user_profile_form.as_p }}
+                {{ user_profile_form.phone_number | as_crispy_field }}
+                {{ user_profile_form.address | as_crispy_field }}
+                {{ user_profile_form.golf_id | as_crispy_field }}
+                {{ user_profile_form.handicap | as_crispy_field }}
+                
             <button type="submit" class="btn btn-outline-dark">Submit</button>
             </form>
         </div>
     </div>
+</div>
 {% for teetimes in tee_times %}
 <div class="modal fade" id="teetime{{ teetimes.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -64,7 +73,7 @@
     {{ message }}
 {% endfor %}
 
-</div>
+
 
 
 {% endblock %}

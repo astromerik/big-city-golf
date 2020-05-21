@@ -90,7 +90,24 @@
             <p class="text-center"><small><i> Erik Åström 2020 - All rights reserved</i></small></p>
         </div>
     </nav>
+
+    {% if messages %}
+        <div class="message-box">
+            {% for message in messages %}
+                {% with message.level as level %}
+                    {% if level == 40 %}
+                        {% include 'includes/toasts/fail.html' %}
+                    {% else %}
+                        {% include 'includes/toasts/success.html' %}
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% endif %}
     {% block postloadjs %}
+    <script type="text/javascript">
+        $('.toast').toast('show');
+    </script>
     {% endblock %}
   </body>
 </html>

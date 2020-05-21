@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'paygreenfee',
     'phonenumber_field',
     'storages',
+    'crispy_forms',
 
 ]
 
@@ -62,6 +63,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'big_city_golf.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
@@ -79,9 +82,15 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'courses.contexts.course_bookings',
             ],
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ]
         },
     },
 ]
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
