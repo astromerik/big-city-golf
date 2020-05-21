@@ -19,9 +19,14 @@ def paygreenfee(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     course_bag = request.session.get('course_bag', {})
+    bag = {k: [get_object_or_404(TeeTime, pk=_id) for _id in v] for k, v in course_bag.items()}
     payment_form = PaymentInfoForm()
-    green_fee_grand_total = sum(
-                        [entry[0][1] for entry in list(course_bag.values())])
+
+    green_fee_grand_total = 0
+    for course, teetimelist in bag.items():
+        for teetime in teetimelist:
+            green_fee_grand_total += teetime.course.green_fee
+
     stripe.api_key = stripe_secret_key
     intent = stripe.PaymentIntent.create(
                     amount=green_fee_grand_total,
@@ -46,29 +51,19 @@ def paygreenfee(request):
             payment.total_greenfee = green_fee_grand_total
             payment.save()
 
-            for course_id, course_data in course_bag.items():
-                player = get_object_or_404(UserProfile, user=request.user)
+            for course_id, teetimes in course_bag.items():
                 course = get_object_or_404(Course, pk=course_id)
-                for booked_time in course_data:
-                    booked_time_string = booked_time[0]
-                    booked_time_green_fee = booked_time[1]
-                    tee_time = TeeTime.objects.create(
-                        tee_time=booked_time_string,
-                        price=booked_time_green_fee,
-                        course=course,
-                        player=player,
-                        booked=True
-                    )
-                    tee_time.save()
-
-                    create_tee_time_purchase = TeeTimePurchase(
+                for teetime_id in teetimes:
+                    teetime = get_object_or_404(TeeTime, pk=teetime_id)
+                    teetime.booked = True
+                    teetime.save()
+                    tee_time_purchase = TeeTimePurchase(
                         payment_info=payment,
-                        tee_time=tee_time,
+                        tee_time=teetime,
                         course=course,
-                        player=player,
-                        total_greenfee=booked_time_green_fee,
+                        greenfee=course.green_fee,
                     )
-                    create_tee_time_purchase.save()
+                    tee_time_purchase.save()
 
             if 'course_bag' in request.session:
                 del request.session['course_bag']
@@ -96,15 +91,25 @@ def paygreenfee(request):
         'total': green_fee_grand_total,
         'stripe_public_key': stripe_public_key,
         'client_secret': intent.client_secret,
-        'course_bag': course_bag,
+        'bag': bag,
     }
 
     return render(request, template, context)
 
 
-def remove_tee_time_from_bag(request, course_id):
+def remove_tee_time_from_bag(request, teetime_id):
+    print("We are here")
     course_bag = request.session.get('course_bag', {})
-    course_bag.pop(course_id)
+    print(course_bag)
+    teetime = get_object_or_404(TeeTime, pk=teetime_id)
+    print(teetime)
+    course_id = str(teetime.course.id)
+    print(course_id)
 
-    request.session['course_bag'] = course_bag
-    return render(reverse('courses'))
+    if course_id in course_bag.keys():
+        print("I'm there")
+        if teetime.id in course_bag[course_id]:
+            course_bag[course_id].remove(teetime.id)
+            request.session['course_bag'] = course_bag
+    print(course_bag)
+    return redirect(reverse('paygreenfee'))

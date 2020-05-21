@@ -15,7 +15,7 @@ def golfprofile(request):
 
     current_user = get_object_or_404(UserProfile, user=request.user)
     tee_times = TeeTime.objects.filter(player=current_user)
-    purchased_tee_times = TeeTimePurchase.objects.filter(player=current_user)
+    purchased_tee_times = TeeTimePurchase.objects.filter(tee_time__player=current_user)
 
     user = request.user
     user_form = UserForm(instance=user)
@@ -42,10 +42,11 @@ def golfprofile(request):
                    'purchased_tee_times': purchased_tee_times,
                    })
 
+
 @login_required
 def delete_tee_time(request, tee_time_id):
     """ Delete the booked tee time """
     tee_time = TeeTime.objects.get(pk=tee_time_id)
     tee_time.delete()
-
+    # flash a message to confirm ? Not required.
     return redirect('golfprofile')

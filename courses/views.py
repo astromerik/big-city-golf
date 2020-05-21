@@ -72,32 +72,43 @@ def course_detail(request, course_id):
 
 @login_required
 @require_POST
-def book_course(request):
+def book_course_teetime(request):
+
     # Get the "bag" of courses that the user wants to book
     course_bag = request.session.get('course_bag', {})
 
     # Get the course id/tee time for the current course they are booking
     course_id = request.POST.get('course')
     course = get_object_or_404(Course, pk=course_id)
-    booked_time = request.POST.get('tee_time')
+    asked_teetime = request.POST.get('tee_time')
+
     # Check whether the tee time has already been booked for that course
-    booked_time_test = datetime.strptime(
-        booked_time, "%Y-%m-%d %H:%M")
+    teetime_as_date = datetime.strptime(asked_teetime, "%Y-%m-%d %H:%M")
     booking_exist = TeeTime.objects.filter(course=course_id,
-                                           tee_time=booked_time_test).exists()
+                                           tee_time=teetime_as_date).exists()
 
     # If so, return an error and redirect
     if booking_exist:
         messages.error(request, "Tee time is already booked")
         return redirect(reverse('courses'))
-    bag_entry = (booked_time, course.green_fee, course.course_name, course.img_url)
+
+    # bag_entry = (asked_teetime, course.green_fee,
+    #              course.course_name, course.img_url)
+
+    teetime = TeeTime.objects.create(course=course,
+                                     tee_time=teetime_as_date,
+                                     player=request.user.userprofile,
+                                     booked=False)
+    teetime.save()
+
     # Otherwise, just add it to the bag
     if course_id not in set(course_bag.keys()):
-        course_bag[course_id] = [bag_entry, ]
-        messages.success(request, f'Added {course.course_name} to your golfbag')
+        course_bag[course_id] = [teetime.id, ]
+        messages.success(request,
+                         f'Added {course.course_name} to your golfbag')
     else:
-        course_bag[course_id].append(bag_entry)
+        course_bag[course_id].append(teetime.id)
+
     request.session['course_bag'] = course_bag
 
     return redirect('courses')
-

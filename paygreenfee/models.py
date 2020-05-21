@@ -47,10 +47,8 @@ class TeeTimePurchase(models.Model):
                                  on_delete=models.CASCADE)
     course = models.ForeignKey(Course, null=False, blank=False,
                                on_delete=models.CASCADE)
-    player = models.ForeignKey(UserProfile, null=False, blank=False,
-                               on_delete=models.CASCADE)
-    total_greenfee = models.DecimalField(max_digits=10, decimal_places=2,
-                                         blank=False, null=False, default=0)
+    greenfee = models.DecimalField(max_digits=10, decimal_places=2,
+                                   blank=False, null=False, default=0)
 
     def __str__(self):
         return str(self.payment_info)
