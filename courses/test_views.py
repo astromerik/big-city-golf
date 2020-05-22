@@ -1,7 +1,7 @@
 from django.test import TestCase
-from .models import Course
+from .models import Course, TeeTime
 from golfprofile.models import User
-from .models import TeeTime
+from paygreenfee.models import TeeTimePurchase, PaymentInfo
 # Create your tests here.
 
 
@@ -27,11 +27,18 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'courses/course_detail.html')
 
-    def test_add_to_course_bag(self):
+    def test_create_tee_time_and_add_to_bag(self):
         self.client.login(username='testlogin', password='thisisatest123')
         course_bag = {}
-        course = Course.objects.create(course_name='test course', green_fee=200, img_url='someimg.png')
-        course_bag[course.id] = [('2020-06-06 13:30', 200, 'test course', '')]
+        self.test_course = Course.objects.create(
+                            course_name='test course',
+                            green_fee=200,
+        )
+        teetime = TeeTime.objects.create(course=self.test_course,
+                                         tee_time='2020-06-06 13:30',
+                                         booked=False, player=self.test_user.userprofile)
+        print(teetime)
+        course_bag[self.test_course.id] = [teetime.id]
         response = self.client.post('book/', course_bag)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'courses/courses.html')

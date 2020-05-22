@@ -92,8 +92,7 @@ def book_course_teetime(request):
         messages.error(request, "Tee time is already booked")
         return redirect(reverse('courses'))
 
-    # bag_entry = (asked_teetime, course.green_fee,
-    #              course.course_name, course.img_url)
+    # Create a tee time with booked status false
 
     teetime = TeeTime.objects.create(course=course,
                                      tee_time=teetime_as_date,
@@ -102,7 +101,7 @@ def book_course_teetime(request):
                                      )
     teetime.save()
 
-    # Otherwise, just add it to the bag
+    # If not booking exist, add it to the bag
     if course_id not in set(course_bag.keys()):
         course_bag[course_id] = [teetime.id, ]
         messages.success(request,

@@ -11,4 +11,4 @@ class TestTeeTimeForm(TestCase):
 
     def test_fields_are_explicit_in_form_metaclass(self):
         form = TeeTimeForm()
-        self.assertEqual(form.Meta.fields, ['tee_time', 'course', 'price'])
+        self.assertEqual(form.Meta.fields, ['tee_time', 'course'])

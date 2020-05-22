@@ -112,8 +112,6 @@ The database used in development mode is sqllite3 and in Heroku PostgreSQL.
 The database has a hierarchical structure where UserProfile is dependent on User, Courses of Districts and so on.
 
 
-
-
 ## Existing features 
 
 * Navigation bar - Collabsable when screen size is below 993 pixels, different options depending if user is logged in or not
@@ -163,10 +161,9 @@ The following steps were taken to deploy the application on Heroku:
 1. Log in to my Heroku 
 2. Click on "new" in the top right corner and choose "create new app"
 3. Choose the name of the application and set "Region" to Europe. Click "Create app"
-4. Go to settings and add the config vars PORT (5000) and IP (0.0.0.0)
-5. Login on Heroku through the CLI in your IDE. 
-6. Add the project as a master branch 
-7. Push to Heroku (git push)
+4. Login on Heroku through the CLI in your IDE. 
+5. Add the project as a master branch 
+6. Push to Heroku (git push)
 
 For Heroku to be able to run the app a Procfile and a requirements.txt must be created which is done in the IDE. 
 After connected and deployed on Heroku, when pushing the workspace to Github 'git push origin master' was used. 
