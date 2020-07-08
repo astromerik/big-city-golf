@@ -25,7 +25,7 @@ The users goals are:
 #### Ideal users are:
 * English speaking
 * Golfer
-* Living in/visiting Stockholm, Gothenburg or Malmo
+* Living in/visiting Stockholm, Gothenburg or Malmö
 
 #### Users are searching for:
 * An application where they can browse golf courses in their area or big cities in Sweden
